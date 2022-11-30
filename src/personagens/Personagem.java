@@ -6,25 +6,18 @@ import equipamentos.Equipamento;
 public abstract class Personagem {
 
     private int hp;
+    private int hpBase;
     private String nome;
     private int mp;
     private int xp = 0;
     private int xpBar = 10;
     private int level = 1;
-    private Efeito efeito;
+    private Efeito efeito = Efeito.NENHUM;
     private int danoBase;
     private Equipamento equipamento;
 
-    public Personagem(int hp, String nome, int mp, int danoBase, Efeito efeito) {
-        this.hp = hp;
-        this.nome = nome;
-        this.mp = mp;
-        this.danoBase = danoBase;
-        this.efeito = efeito;
-    }
+    public Personagem() {}
 
-    public Personagem() {
-    }
 
     public int getHp() {
         return hp;
@@ -107,9 +100,22 @@ public abstract class Personagem {
         this.equipamento = equipamento;
     }
 
+    public int getHpBase() {
+        return hpBase;
+    }
+
+    public void setHpBase(int hpBase) {
+        this.hpBase = hpBase;
+    }
+
     public abstract void mostrarAtaques();
 
     public abstract void mostrarAtributos();
 
+    //public abstract int atacar();
+
     public abstract void tomarDano(int dano);
+
+    public abstract String imprimirAtributos();
+
 }

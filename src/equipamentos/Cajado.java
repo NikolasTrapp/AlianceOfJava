@@ -3,7 +3,7 @@ package equipamentos;
 public class Cajado extends Equipamento{
 
     public Cajado() {
-        super(4, "Cajado", 4);
+        super(Tipo.ATAQUE, "Cajado", 4, 5);
     }
 
     @Override
@@ -11,7 +11,7 @@ public class Cajado extends Equipamento{
         if (usos > 0) {
             usos--;
             System.out.println("Usou " + nome);
-            return atributoPersonagem + atributo;
+            return atributoPersonagem + forca;
         } else {
             System.out.println("Vix! Você não possui mais usos de " + nome);
             return 0;

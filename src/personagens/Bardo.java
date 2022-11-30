@@ -5,11 +5,13 @@ import equipamentos.Equipamento;
 
 public class Bardo extends Personagem{
 
-    public Bardo() {
-    }
 
-    public Bardo(int hp, String nome, int mp, int danoBase, Efeito efeito) {
-        super(hp, nome, mp, danoBase, efeito);
+    public Bardo() {
+        setNome("Bardo");
+        setHpBase(110);
+        setHp(getHpBase());
+        setDanoBase(10);
+        setMp(13);
     }
 
     @Override
@@ -25,5 +27,10 @@ public class Bardo extends Personagem{
     @Override
     public void tomarDano(int dano) {
         setHp(getHp()-dano);
+    }
+
+    @Override
+    public String imprimirAtributos() {
+        return String.format("%nNome: %s%nHP: %d%nDano base: %d%nMP: %d%n", getNome(), getHpBase(), getDanoBase(), getMp());
     }
 }

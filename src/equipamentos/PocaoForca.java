@@ -1,9 +1,9 @@
 package equipamentos;
 
-public class EspadaMadeira extends Equipamento{
+public class PocaoForca extends Equipamento{
 
-    public EspadaMadeira() {
-        super(Tipo.ATAQUE, "Espada de madeira", 2, 3);
+    public PocaoForca() {
+        super(Tipo.BUFF, "Poção de força", 1, 10);
     }
 
     @Override

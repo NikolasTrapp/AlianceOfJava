@@ -13,11 +13,13 @@ import equipamentos.Equipamento;
 public class Guerreiro extends Personagem{
 
 
-    public Guerreiro() {
-    }
 
-    public Guerreiro(int hp, String nome, int mp, int danoBase, Efeito efeito) {
-        super(hp, nome, mp, danoBase, efeito);
+    public Guerreiro() {
+        setNome("Guerreiro");
+        setHpBase(125);
+        setHp(getHpBase());
+        setDanoBase(15);
+        setMp(12);
     }
 
 
@@ -35,4 +37,10 @@ public class Guerreiro extends Personagem{
     public void tomarDano(int dano) {
         setHp(getHp()-dano);
     }
+
+    @Override
+    public String imprimirAtributos() {
+        return String.format("%nNome: %s%nHP: %d%nDano base: %d%nMP: %d%n", getNome(), getHpBase(), getDanoBase(), getMp());
+    }
+
 }

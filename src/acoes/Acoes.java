@@ -1,5 +1,7 @@
 package acoes;
 
+import equipamentos.Equipamento;
+
 public interface Acoes {
 
     void mostrarAtaques();

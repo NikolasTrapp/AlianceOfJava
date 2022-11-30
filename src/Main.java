@@ -1,29 +1,30 @@
-import acoes.Efeito;
+import equipamentos.Equipamento;
 import inimigos.*;
-import org.w3c.dom.ls.LSOutput;
 import personagens.*;
 
 import java.util.*;
 
 public class Main {
 
-    public static ArrayList<Personagem> personagens = new ArrayList<>();
+    public static ArrayList<Personagem> personagens = new ArrayList<>(Arrays.asList(
+            new Bardo(),
+            new Guerreiro(),
+            new Barbaro(),
+            new Mago(),
+            new Ladino()
+    ));
     public static ArrayList<Inimigo> inimigos = new ArrayList<>();
     public static Scanner sc = new Scanner(System.in);
     public static Personagem personagem;
 
     public static void main(String[] args) {
-        iniciarPersonagens();
-
         boolean flag = true;
 
         System.out.println("Bem vindo à nossa campanha de RPG!!!");
-        gerarInimigos(1);
-        inimigos.forEach(System.out::println);
-
         System.out.println("Escolha seu personagem e inicie a sua aventura");
+
         personagens.forEach( p -> {
-            System.out.println(personagens.indexOf(p)+1 + " - " + p.getNome());
+            System.out.println("Personagem " + personagens.indexOf(p)+1 + ": " + p.imprimirAtributos());
         });
 
         do {
@@ -40,20 +41,7 @@ public class Main {
             }
         } while (flag);
 
-        if (personagem != null) prepararRodada();
-
-    }
-
-
-
-    public static void iniciarPersonagens(){
-        Bardo bardo = new Bardo(110, "Bardo", 10, 10, Efeito.NENHUM);
-        Guerreiro guerreiro = new Guerreiro(125, "Guerreiro", 5,15, Efeito.NENHUM);
-        Barbaro barbaro = new Barbaro(140, "Barbaro", 5, 18, Efeito.NENHUM);
-        Mago mago = new Mago(100, "Mago", 5, 12, Efeito.NENHUM);
-        Ladino ladino = new Ladino(110, "Ladino", 5, 14, Efeito.NENHUM);
-
-        personagens.addAll(Arrays.asList(bardo, guerreiro, barbaro, mago, ladino));
+        if (personagem != null) iniciarRaid();
     }
 
     public static void gerarInimigos(int levelPersonagem){
@@ -70,16 +58,22 @@ public class Main {
         }
     }
 
-    public static void prepararRodada(){
+    public static void iniciarRodada(){
+        gerarInimigos(personagem.getLevel());
+        inimigos.forEach(System.out::println);
         int turno = 1;
         while (inimigos.size() > 0 && personagem.getHp() > 0){
-            System.out.println("Turno - " + turno);
+            System.out.println("Turno: " + turno);
             System.out.println("Sua vez de atacar!");
+
             imprimirInimigos();
+
             System.out.println("Seus ataques:");
             personagem.mostrarAtaques();
+
             System.out.print("Qual inimigo deseja atacar: ");
             int opc = sc.nextInt();
+
             Inimigo inimigoTurno = inimigos.get(opc-1);
             inimigoTurno.tomarDano(60);
             System.out.println("Você desferiu uma quantidade de XXX de dano!!!");
@@ -96,7 +90,6 @@ public class Main {
                 System.out.println("O inimigo " + inimigo.getNome() +
                         " desferiu a você uma quantidade de " + inimigo.getDano() +
                         " de dano, lhe resta " + personagem.getHp() + " pontos de vida");
-
             }
             turno ++;
         }
@@ -104,11 +97,29 @@ public class Main {
 
     public static void imprimirInimigos(){
         for (Inimigo inimigo : inimigos){
-            System.out.println("Inimigo numero " + inimigos.indexOf(inimigo));
+            System.out.println("Inimigo numero " + (inimigos.indexOf(inimigo)+1));
             System.out.println("Nome: " + inimigo.getNome());
             System.out.println("Vida: " + inimigo.getHp());
             System.out.println("Dano: " + inimigo.getDano() + "\n");
         }
     }
+
+    public static void iniciarRaid(){
+        for (int i = 1; i <= 3; i++){
+            System.out.println("Rodada: " + i);
+            iniciarRodada();
+        }
+        personagem.setHp(110);
+        System.out.println("Um boss apareceu!!!");
+    }
+
+//    public static void abrirBau(){
+//        int n = (int)Math.floor(Math.random()*(5-1+1)+1);
+//        System.out.println("Você encontrou um baú no caminho para próxima raid!!");
+//
+//
+//
+//        char opc = sc.next().charAt(0);
+//    }
 
 }

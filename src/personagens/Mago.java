@@ -7,10 +7,11 @@ public class Mago extends Personagem{
 
 
     public Mago() {
-    }
-
-    public Mago(int hp, String nome, int mp, int danoBase, Efeito efeito) {
-        super(hp, nome, mp, danoBase, efeito);
+        setNome("Mago");
+        setHpBase(100);
+        setHp(getHpBase());
+        setDanoBase(12);
+        setMp(15);
     }
 
 
@@ -27,6 +28,11 @@ public class Mago extends Personagem{
     @Override
     public void tomarDano(int dano) {
         setHp(getHp()-dano);
+    }
+
+    @Override
+    public String imprimirAtributos() {
+        return String.format("%nNome: %s%nHP: %d%nDano base: %d%nMP: %d%n", getNome(), getHpBase(), getDanoBase(), getMp());
     }
 }
 

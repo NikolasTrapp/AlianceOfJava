@@ -14,6 +14,8 @@ public abstract class Inimigo {
         this.nome = nome;
         this.hp = hp + hpBase;
         this.dano = dano + danoBase;
+        this.danoBase = danoBase;
+        this.hpBase = hpBase;
     }
 
     public String getNome() {
@@ -25,7 +27,7 @@ public abstract class Inimigo {
     }
 
     public void setHp(int hp) {
-        this.hp = hp+hpBase;
+        this.hp = hp;
     }
 
     public int getDano() {
