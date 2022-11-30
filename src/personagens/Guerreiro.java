@@ -8,6 +8,7 @@ package personagens;
 
 
 import acoes.Efeito;
+import equipamentos.Equipamento;
 
 public class Guerreiro extends Personagem{
 
@@ -15,8 +16,8 @@ public class Guerreiro extends Personagem{
     public Guerreiro() {
     }
 
-    public Guerreiro(int hp, String nome, int mp, int xp, int xpBar, int level, int danoBase, Efeito efeito) {
-        super(hp, nome, mp, xp, xpBar, level, danoBase, efeito);
+    public Guerreiro(int hp, String nome, int mp, int danoBase, Efeito efeito) {
+        super(hp, nome, mp, danoBase, efeito);
     }
 
 
@@ -28,5 +29,10 @@ public class Guerreiro extends Personagem{
     @Override
     public void mostrarAtributos() {
 
+    }
+
+    @Override
+    public void tomarDano(int dano) {
+        setHp(getHp()-dano);
     }
 }

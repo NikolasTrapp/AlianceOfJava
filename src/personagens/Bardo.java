@@ -1,14 +1,15 @@
 package personagens;
 
 import acoes.Efeito;
+import equipamentos.Equipamento;
 
 public class Bardo extends Personagem{
 
     public Bardo() {
     }
 
-    public Bardo(int hp, String nome, int mp, int xp, int xpBar, int level, int danoBase, Efeito efeito) {
-        super(hp, nome, mp, xp, xpBar, level, danoBase, efeito);
+    public Bardo(int hp, String nome, int mp, int danoBase, Efeito efeito) {
+        super(hp, nome, mp, danoBase, efeito);
     }
 
     @Override
@@ -19,5 +20,10 @@ public class Bardo extends Personagem{
     @Override
     public void mostrarAtributos() {
 
+    }
+
+    @Override
+    public void tomarDano(int dano) {
+        setHp(getHp()-dano);
     }
 }

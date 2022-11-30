@@ -1,6 +1,7 @@
 package personagens;
 
 import acoes.Efeito;
+import equipamentos.Equipamento;
 
 public class Ladino extends Personagem{
 
@@ -8,8 +9,8 @@ public class Ladino extends Personagem{
     public Ladino() {
     }
 
-    public Ladino(int hp, String nome, int mp, int xp, int xpBar, int level, int danoBase, Efeito efeito) {
-        super(hp, nome, mp, xp, xpBar, level, danoBase, efeito);
+    public Ladino(int hp, String nome, int mp, int danoBase, Efeito efeito) {
+        super(hp, nome, mp, danoBase, efeito);
     }
 
 
@@ -21,6 +22,11 @@ public class Ladino extends Personagem{
     @Override
     public void mostrarAtributos() {
 
+    }
+
+    @Override
+    public void tomarDano(int dano) {
+        setHp(getHp()-dano);
     }
 }
 

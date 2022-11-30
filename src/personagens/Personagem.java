@@ -1,25 +1,24 @@
 package personagens;
 
 import acoes.Efeito;
+import equipamentos.Equipamento;
 
 public abstract class Personagem {
 
     private int hp;
     private String nome;
     private int mp;
-    private int xp;
-    private int xpBar;
-    private int level;
+    private int xp = 0;
+    private int xpBar = 10;
+    private int level = 1;
     private Efeito efeito;
     private int danoBase;
+    private Equipamento equipamento;
 
-    public Personagem(int hp, String nome, int mp, int xp, int xpBar, int level, int danoBase, Efeito efeito) {
+    public Personagem(int hp, String nome, int mp, int danoBase, Efeito efeito) {
         this.hp = hp;
         this.nome = nome;
         this.mp = mp;
-        this.xp = xp;
-        this.xpBar = xpBar;
-        this.level = level;
         this.danoBase = danoBase;
         this.efeito = efeito;
     }
@@ -55,7 +54,16 @@ public abstract class Personagem {
         return xp;
     }
 
-    public void setXp(int xp) {
+    public void addXp(int xp) {
+        if (getXp() + xp >= getXpBar()){
+            setXp(getXp() + xp % xpBar);
+            level++;
+            setXpBar(10);
+        }
+        this.xp += xp;
+    }
+
+    private void setXp(int xp){
         this.xp = xp;
     }
 
@@ -63,7 +71,7 @@ public abstract class Personagem {
         return xpBar;
     }
 
-    public void setXpBar(int xpBar) {
+    private void setXpBar(int xpBar) {
         this.xpBar = xpBar;
     }
 
@@ -83,7 +91,25 @@ public abstract class Personagem {
         this.efeito = efeito;
     }
 
+    public int getDanoBase() {
+        return danoBase;
+    }
+
+    public void setDanoBase(int danoBase) {
+        this.danoBase = danoBase;
+    }
+
+    public Equipamento getEquipamento() {
+        return equipamento;
+    }
+
+    public void setEquipamento(Equipamento equipamento) {
+        this.equipamento = equipamento;
+    }
+
     public abstract void mostrarAtaques();
 
     public abstract void mostrarAtributos();
+
+    public abstract void tomarDano(int dano);
 }
