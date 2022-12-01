@@ -1,8 +1,6 @@
-import personagens.Bardo;
-import personagens.Personagem;
+import entidades.Personagem;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Gerenciador {
 

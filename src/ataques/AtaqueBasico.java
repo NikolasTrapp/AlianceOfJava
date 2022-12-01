@@ -1,42 +1,24 @@
 package ataques;
 
-public abstract class AtaqueBasico implements Ataque{
-
-    private String nome;
-    private int dano;
-    private int chanceCritico;
-    private int chanceErro;
+public class AtaqueBasico extends Ataque{
 
 
-    public String getNome() {
-        return nome;
+    public AtaqueBasico(String nome, int dano, int chanceCritico, int chanceErro, String classe, int nivelMinimo) {
+        super(nome, dano, chanceCritico, chanceErro, classe, nivelMinimo);
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    @Override
+    public int calcularDano() {
+        return 0;
     }
 
-    public int getDano() {
-        return dano;
-    }
-
-    public void setDano(int dano) {
-        this.dano = dano;
-    }
-
-    public int getChanceCritico() {
-        return chanceCritico;
-    }
-
-    public void setChanceCritico(int chanceCritico) {
-        this.chanceCritico = chanceCritico;
-    }
-
-    public int getChanceErro() {
-        return chanceErro;
-    }
-
-    public void setChanceErro(int chanceErro) {
-        this.chanceErro = chanceErro;
+    @Override
+    public void mostrarAtributos() {
+        System.out.println("Nome: " + getNome());
+        System.out.println("Dano: " + getDano());
+        System.out.println("ChanceCritico: " + getChanceCritico());
+        System.out.println("ChanceErro: " + getChanceErro());
+        System.out.println("Classe: " + getClasse());
+        System.out.println("Nivel minimo: " + getNivelMinimo());
     }
 }

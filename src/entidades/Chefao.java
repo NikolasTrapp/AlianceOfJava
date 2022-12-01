@@ -1,4 +1,4 @@
-package chefoes;
+package entidades;
 
 public abstract class Chefao {
 

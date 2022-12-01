@@ -1,46 +1,39 @@
 package ataques;
 
-public abstract class AtaqueEspecial implements Ataque{
+public class AtaqueEspecial extends Ataque{
 
-    private String nome;
-    private int dano;
-    private int chanceCritico;
-    private int chanceErro;
     private Efeito efeito;
     private int custoMP;
+    private int chanceEfeito;
 
-
-    public String getNome() {
-        return nome;
+    public AtaqueEspecial(String nome, int dano, int chanceCritico, int chanceErro, Efeito efeito, int custoMP, int chanceEfeito, String classe, int nivelMinimo) {
+        super(nome, dano, chanceCritico, chanceErro, classe, nivelMinimo);
+        this.efeito = efeito;
+        this.custoMP = custoMP;
+        this.chanceEfeito = chanceEfeito;
+    }
+    @Override
+    public int calcularDano() {
+        return 0;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    @Override
+    public void mostrarAtributos() {
+        System.out.println("Nome: " + getNome());
+        System.out.println("Dano: " + getDano());
+        System.out.println("ChanceCritico: " + getChanceCritico());
+        System.out.println("ChanceErro: " + getChanceErro());
+        System.out.println("Classe: " + getClasse());
+        System.out.println("Nivel minimo: " + getNivelMinimo());
+        System.out.println("Custo mp: " + getCustoMP());
+        System.out.println("Efeito: " + getEfeito());
     }
 
-    public int getDano() {
-        return dano;
-    }
 
-    public void setDano(int dano) {
-        this.dano = dano;
-    }
 
-    public int getChanceCritico() {
-        return chanceCritico;
-    }
 
-    public void setChanceCritico(int chanceCritico) {
-        this.chanceCritico = chanceCritico;
-    }
 
-    public int getChanceErro() {
-        return chanceErro;
-    }
-
-    public void setChanceErro(int chanceErro) {
-        this.chanceErro = chanceErro;
-    }
+    //GETTERS E SETTERS
 
     public Efeito getEfeito() {
         return efeito;
@@ -56,5 +49,14 @@ public abstract class AtaqueEspecial implements Ataque{
 
     public void setCustoMP(int custoMP) {
         this.custoMP = custoMP;
+    }
+
+
+    public int getChanceEfeito() {
+        return chanceEfeito;
+    }
+
+    public void setChanceEfeito(int chanceEfeito) {
+        this.chanceEfeito = chanceEfeito;
     }
 }

@@ -7,7 +7,4 @@ public enum Efeito {
     PARALIZIA,
     SANGRAMENTO,
     FRAQUEZA;
-
-    
-
 }

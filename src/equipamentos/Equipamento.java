@@ -1,11 +1,11 @@
 package equipamentos;
 
-public abstract class Equipamento {
+public class Equipamento {
 
-    protected Tipo tipo;
-    protected String nome;
-    protected int usos;
-    protected int forca;
+    private Tipo tipo;
+    private String nome;
+    private int usos;
+    private int forca;
 
     public Equipamento(Tipo tipo, String nome, int usos, int forca) {
         this.tipo = tipo;
@@ -14,7 +14,19 @@ public abstract class Equipamento {
         this.forca = forca;
     }
 
-    public abstract int usar(int tipoPersonagem);
+    public int usar(int tipoPersonagem) {
+        return 0;
+    }
+
+
+    //GETTERS E SETTERS
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
+    }
 
     public String getNome() {
         return nome;
@@ -30,14 +42,6 @@ public abstract class Equipamento {
 
     public void setUsos(int usos) {
         this.usos = usos;
-    }
-
-    public Tipo getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(Tipo tipo) {
-        this.tipo = tipo;
     }
 
     public int getForca() {

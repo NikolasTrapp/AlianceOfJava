@@ -1,17 +1,14 @@
-import equipamentos.Equipamento;
-import inimigos.*;
-import personagens.*;
+import entidades.*;
 
 import java.util.*;
 
 public class Main {
 
     public static ArrayList<Personagem> personagens = new ArrayList<>(Arrays.asList(
-            new Bardo(),
-            new Guerreiro(),
-            new Barbaro(),
-            new Mago(),
-            new Ladino()
+            new Personagem(100, "Bardo", 10, 15),
+            new Personagem(120, "Barbaro", 11, 15),
+            new Personagem(90, "Mago", 14, 15),
+            new Personagem(110, "Guerreiro", 12, 15)
     ));
     public static ArrayList<Inimigo> inimigos = new ArrayList<>();
     public static Scanner sc = new Scanner(System.in);
@@ -24,7 +21,8 @@ public class Main {
         System.out.println("Escolha seu personagem e inicie a sua aventura");
 
         personagens.forEach( p -> {
-            System.out.println("Personagem " + (personagens.indexOf(p)+1) + ": " + p.imprimirAtributos());
+            System.out.println("\nPersonagem " + (personagens.indexOf(p)+1) + ": ");
+            p.mostrarAtributos();
         });
 
         do {
@@ -45,22 +43,22 @@ public class Main {
     }
 
     public static void gerarInimigos(int levelPersonagem){
-        for (int i = 0; i < 4; i++){
-            int n = (int)Math.floor(Math.random()*(5-1+1)+1);
+        for (int i = 0; i < getRandom(1, 5); i++){
+            int n = getRandom(1, 5);
             Inimigo inimigo;
-            if (n == 1) inimigo = new Lobo("Lobo", (levelPersonagem-1)*2, (levelPersonagem-1)*2, 60, 2);
-            else if (n == 2) inimigo = new Goblin("Goblin", (levelPersonagem-1)*2, (levelPersonagem-1)*2, 65, 3);
-            else if (n == 3) inimigo = new Troll("Troll", (levelPersonagem-1)*2, (levelPersonagem-1)*2, 70, 4);
-            else if (n == 4) inimigo = new Zumbi("Zumbi", (levelPersonagem-1)*2, (levelPersonagem-1)*2, 85, 5);
-            else if (n == 5) inimigo = new Urso("Urso", (levelPersonagem-1)*2, (levelPersonagem-1)*2, 95, 7);
-            else throw new NoSuchElementException("Ocorreu um erro ao criar um personagem!");
+            if (n == 1) inimigo = new Inimigo("Lobo", 50 * (levelPersonagem+1)*1.5, 3 + (levelPersonagem-1)*2,levelPersonagem*1.5);
+            else if (n == 2) inimigo = new Inimigo("Goblin", 55 * (levelPersonagem+1)*1.5, 3 + (levelPersonagem-1)*2,levelPersonagem*1.7);
+            else if (n == 3) inimigo = new Inimigo("Troll", 60 * (levelPersonagem+1)*1.5, 3 + (levelPersonagem-1)*2,levelPersonagem*1.9);
+            else if (n == 4) inimigo = new Inimigo("Zumbi", 55 * (levelPersonagem+1)*1.5, 3 + (levelPersonagem-1)*2,levelPersonagem*2.1);
+            else if (n == 5) inimigo = new Inimigo("Urso", 55 * (levelPersonagem+1)*1.5, 3 + (levelPersonagem-1)*2,levelPersonagem*2.3);
+            else throw new NoSuchElementException("Ocorreu um erro ao criar um inimigo!");
             inimigos.add(inimigo);
         }
     }
 
     public static void iniciarRodada(){
         gerarInimigos(personagem.getLevel());
-        inimigos.forEach(System.out::println);
+//        inimigos.forEach(System.out::println);
         int turno = 1;
         while (inimigos.size() > 0 && personagem.getHp() > 0){
             System.out.println("Turno: " + turno);
@@ -75,13 +73,14 @@ public class Main {
             int opc = sc.nextInt();
 
             Inimigo inimigoTurno = inimigos.get(opc-1);
-            inimigoTurno.tomarDano(60);
-            System.out.println("Você desferiu uma quantidade de XXX de dano!!!");
+            int danoAtaque = personagem.getDanoBase();
+            inimigoTurno.tomarDano(danoAtaque);
+            System.out.printf("Você desferiu uma quantidade de %d de dano!!!", danoAtaque);
 
             if (inimigoTurno.getHp() <= 0){
                 inimigos.remove(inimigoTurno);
                 System.out.println("Inimigo morto!");
-                personagem.addXp(2);
+                personagem.addXp(inimigoTurno.getXpDrop());
             }
 
             System.out.println("Vez dos inimigos!");
@@ -109,8 +108,12 @@ public class Main {
             System.out.println("Rodada: " + i);
             iniciarRodada();
         }
-        personagem.setHp(110);
+        personagem.setHp(personagem.getHpBase());
         System.out.println("Um boss apareceu!!!");
+    }
+
+    public static int getRandom(int min, int max){
+        return (int)Math.floor(Math.random()*(max-min+1)+min);
     }
 
 //    public static void abrirBau(){
