@@ -16,7 +16,7 @@ public class Personagem extends Criatura{
     private int xpBar = 10;
     private int level = 1;
 
-    private Equipamento equipamento = new Equipamento(Tipo.DEFESA, "Armadura", 2, 2);
+    private Equipamento equipamento;
     private ArrayList<AtaqueBasico> ataquesBasicos = new ArrayList<>();
     private ArrayList<AtaqueEspecial> ataqueEspecial = new ArrayList<>();
 
@@ -72,8 +72,8 @@ public class Personagem extends Criatura{
 
     @Override
     public int tomarDano(int dano) {
-        dano -= (equipamento.getTipo() == Tipo.DEFESA) ? verificarEquipamento() : 0;
-        setHp(getHp()-dano);
+        dano -=  verificarEquipamento(Tipo.DEFESA);
+        setHp(getHp()-dano + verificarEquipamento(Tipo.CURA));
         return dano;
     }
 
@@ -81,7 +81,7 @@ public class Personagem extends Criatura{
     public int atacar() {
         int dano = 90;
         System.out.println("Seus ataques:");
-        mostrarAtaques();
+//        mostrarAtaques();
 
         boolean flag = true;
         while (flag){
@@ -91,7 +91,7 @@ public class Personagem extends Criatura{
                 System.out.println("Qual ataque você deseja usar:");
                 int opc = sc.nextInt();
                 dano += (c == 's' || c == 'S') ? ataqueEspecial.get(opc-1).calcularDano() : ataquesBasicos.get(opc-1).calcularDano();
-                if (equipamento.getTipo() == Tipo.ATAQUE) dano += verificarEquipamento();
+                if (equipamento != null) dano += verificarEquipamento(Tipo.ATAQUE);
                 flag = false;
             } catch (IndexOutOfBoundsException err){
                 System.out.println("Verifique a opção selecionada!");
@@ -103,17 +103,16 @@ public class Personagem extends Criatura{
         return dano;
     }
 
-    private int verificarEquipamento(){
+    private int verificarEquipamento(Tipo tipo){
         if (equipamento == null) return 0;
         if (equipamento.getUsos() <= 0) {
             setEquipamento(null);
             return 0;
         }
-
-        System.out.println("Você deseja usar seu item " + equipamento.getNome() +
-                "? Ainda lhe restam " + equipamento.getUsos() + " usos! (s para SIM, senão digite qualquer coisa)");
-        char c = sc.next().charAt(0);
-        return (c == 's' || c == 'S') ? equipamento.usar() : 0;
+        if (equipamento.getTipo() == tipo){
+            return equipamento.usar();
+        }
+        return 0;
     }
 
     public void carregarAtaques(){

@@ -1,11 +1,14 @@
 package equipamentos;
 
+import java.util.Scanner;
+
 public class Equipamento {
 
     private Tipo tipo;
     private String nome;
     private int usos;
     private int forca;
+    private Scanner sc = new Scanner(System.in);
 
     public Equipamento(Tipo tipo, String nome, int usos, int forca) {
         this.tipo = tipo;
@@ -15,9 +18,11 @@ public class Equipamento {
     }
 
     public int usar() {
-        this.usos -= 1;
+        System.out.println("Você deseja usar seu item " + getNome() +
+                "? Ainda lhe restam " + getUsos() + " usos! (s para SIM, senão digite qualquer coisa)");
+        char c = sc.next().charAt(0);
         if (usos <= 0) System.out.println("O seu equiapento " + nome + " quebrou!!!");
-        return getForca();
+        return (c == 's' || c == 'S') ? getForca() : 0;
     }
 
 
