@@ -1,7 +1,5 @@
 package equipamentos;
 
-import acoes.Acoes;
-
 public abstract class Equipamento {
 
     protected Tipo tipo;

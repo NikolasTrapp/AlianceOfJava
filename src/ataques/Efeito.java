@@ -1,12 +1,13 @@
-package acoes;
+package ataques;
 
 public enum Efeito {
 
     NENHUM,
     CHAMAS,
     PARALIZIA,
-    CEGUEIRA,
     SANGRAMENTO,
-    FRAQUEZA
+    FRAQUEZA;
+
+    
 
 }

@@ -7,9 +7,6 @@ package personagens;
 // Dragão, Golem, Rei Troll
 
 
-import acoes.Efeito;
-import equipamentos.Equipamento;
-
 public class Guerreiro extends Personagem{
 
 

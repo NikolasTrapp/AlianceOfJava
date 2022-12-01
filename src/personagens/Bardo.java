@@ -1,8 +1,5 @@
 package personagens;
 
-import acoes.Efeito;
-import equipamentos.Equipamento;
-
 public class Bardo extends Personagem{
 
 

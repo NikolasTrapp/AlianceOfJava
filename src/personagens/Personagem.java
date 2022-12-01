@@ -1,6 +1,6 @@
 package personagens;
 
-import acoes.Efeito;
+import ataques.Efeito;
 import equipamentos.Equipamento;
 
 public abstract class Personagem {

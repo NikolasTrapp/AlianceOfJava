@@ -1,8 +1,5 @@
 package personagens;
 
-import acoes.Efeito;
-import equipamentos.Equipamento;
-
 public class Mago extends Personagem{
 
 
