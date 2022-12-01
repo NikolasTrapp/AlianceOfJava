@@ -27,7 +27,8 @@ public class Main {
 
         do {
             System.out.print("Qual será sua opção: ");
-            int opc = sc.nextInt();
+//            int opc = sc.nextInt();
+            int opc = 4;
             try {
                 personagem = personagens.get(opc-1);
                 System.out.println("Você selecionou o: " +  personagem.getNome());
@@ -43,39 +44,36 @@ public class Main {
     }
 
     public static void gerarInimigos(int levelPersonagem){
-        for (int i = 0; i < getRandom(1, 5); i++){
+        for (int i = 0; i < 4; i++){
             int n = getRandom(1, 5);
-            Inimigo inimigo;
-            if (n == 1) inimigo = new Inimigo("Lobo", 50 * (levelPersonagem+1)*1.5, 3 + (levelPersonagem-1)*2,levelPersonagem*1.5);
-            else if (n == 2) inimigo = new Inimigo("Goblin", 55 * (levelPersonagem+1)*1.5, 3 + (levelPersonagem-1)*2,levelPersonagem*1.7);
-            else if (n == 3) inimigo = new Inimigo("Troll", 60 * (levelPersonagem+1)*1.5, 3 + (levelPersonagem-1)*2,levelPersonagem*1.9);
-            else if (n == 4) inimigo = new Inimigo("Zumbi", 55 * (levelPersonagem+1)*1.5, 3 + (levelPersonagem-1)*2,levelPersonagem*2.1);
-            else if (n == 5) inimigo = new Inimigo("Urso", 55 * (levelPersonagem+1)*1.5, 3 + (levelPersonagem-1)*2,levelPersonagem*2.3);
+            if (n == 1) inimigos.add(new Inimigo("Lobo", 50 * (levelPersonagem+1)*0.5, 3 + (levelPersonagem-1)*2,levelPersonagem*3));
+            else if (n == 2) inimigos.add(new Inimigo("Goblin", 55 * (levelPersonagem+1)*0.5, 3 + (levelPersonagem-1)*2,levelPersonagem*3));
+            else if (n == 3) inimigos.add(new Inimigo("Troll", 60 * (levelPersonagem+1)*0.5, 3 + (levelPersonagem-1)*2,levelPersonagem*3));
+            else if (n == 4) inimigos.add(new Inimigo("Zumbi", 55 * (levelPersonagem+1)*0.5, 3 + (levelPersonagem-1)*2,levelPersonagem*3));
+            else if (n == 5) inimigos.add(new Inimigo("Urso", 55 * (levelPersonagem+1)*0.5, 3 + (levelPersonagem-1)*2,levelPersonagem*3));
             else throw new NoSuchElementException("Ocorreu um erro ao criar um inimigo!");
-            inimigos.add(inimigo);
         }
     }
 
     public static void iniciarRodada(){
         gerarInimigos(personagem.getLevel());
-//        inimigos.forEach(System.out::println);
+//        inimigos.forEach(inimigo -> System.out.println(inimigo.getNome()));
+//        System.out.println(personagem.getHp());
         int turno = 1;
         while (inimigos.size() > 0 && personagem.getHp() > 0){
             System.out.println("Turno: " + turno);
             System.out.println("Sua vez de atacar!");
 
-            imprimirInimigos();
-
-            System.out.println("Seus ataques:");
-            personagem.mostrarAtaques();
+            inimigos.forEach(inimigo -> inimigo.imprimirInimigo(inimigos.indexOf(inimigo)+1));
 
             System.out.print("Qual inimigo deseja atacar: ");
             int opc = sc.nextInt();
 
             Inimigo inimigoTurno = inimigos.get(opc-1);
-            int danoAtaque = personagem.getDanoBase();
+            int danoAtaque = personagem.atacar();
             inimigoTurno.tomarDano(danoAtaque);
-            System.out.printf("Você desferiu uma quantidade de %d de dano!!!", danoAtaque);
+
+            System.out.printf("Você desferiu uma quantidade de %d de dano ao %s!!!%n", danoAtaque, inimigoTurno.getNome());
 
             if (inimigoTurno.getHp() <= 0){
                 inimigos.remove(inimigoTurno);
@@ -85,21 +83,12 @@ public class Main {
 
             System.out.println("Vez dos inimigos!");
             for (Inimigo inimigo : inimigos){
-                personagem.tomarDano(inimigo.desferirDano());
+                int dano = personagem.tomarDano(inimigo.atacar());
                 System.out.println("O inimigo " + inimigo.getNome() +
-                        " desferiu a você uma quantidade de " + inimigo.getDano() +
+                        " desferiu a você uma quantidade de " + dano +
                         " de dano, lhe resta " + personagem.getHp() + " pontos de vida");
             }
             turno ++;
-        }
-    }
-
-    public static void imprimirInimigos(){
-        for (Inimigo inimigo : inimigos){
-            System.out.println("Inimigo numero " + (inimigos.indexOf(inimigo)+1));
-            System.out.println("Nome: " + inimigo.getNome());
-            System.out.println("Vida: " + inimigo.getHp());
-            System.out.println("Dano: " + inimigo.getDano() + "\n");
         }
     }
 

@@ -14,12 +14,15 @@ public class Equipamento {
         this.forca = forca;
     }
 
-    public int usar(int tipoPersonagem) {
-        return 0;
+    public int usar() {
+        this.usos -= 1;
+        if (usos <= 0) System.out.println("O seu equiapento " + nome + " quebrou!!!");
+        return getForca();
     }
 
 
     //GETTERS E SETTERS
+
     public Tipo getTipo() {
         return tipo;
     }

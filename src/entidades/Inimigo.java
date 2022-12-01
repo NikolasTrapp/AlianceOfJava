@@ -16,8 +16,17 @@ public class Inimigo extends Criatura{
     }
 
     @Override
-    public int desferirDano() {
+    public int atacar() {
         return getDanoBase();
+    }
+
+    public void imprimirInimigo(int n){
+        System.out.println("Inimigo numero " + n + ":");
+        System.out.println("Nome: " + getNome());
+        System.out.println("Vida: " + getHp());
+        System.out.println("Dano: " + getDano());
+        System.out.println();
+
     }
 
 

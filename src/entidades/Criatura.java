@@ -12,15 +12,15 @@ public abstract class Criatura {
     private Efeito efeito = Efeito.NENHUM;
 
     public Criatura(double hpBase, String nome, int danoBase) {
-        this.hp = getHpBase();
         this.hpBase = hpBase;
+        this.hp = getHpBase();
         this.nome = nome;
         this.danoBase = danoBase;
         this.dano = getDanoBase();
     }
 
     public abstract int tomarDano(int dano);
-    public abstract int desferirDano();
+    public abstract int atacar();
 
     @Override
     public String toString() {

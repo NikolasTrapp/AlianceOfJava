@@ -6,27 +6,26 @@ public class AtaqueEspecial extends Ataque{
     private int custoMP;
     private int chanceEfeito;
 
-    public AtaqueEspecial(String nome, int dano, int chanceCritico, int chanceErro, Efeito efeito, int custoMP, int chanceEfeito, String classe, int nivelMinimo) {
+    public AtaqueEspecial(String nome, int dano, int chanceCritico, int chanceErro, Efeito efeito, int custoMP, String classe, int nivelMinimo) {
         super(nome, dano, chanceCritico, chanceErro, classe, nivelMinimo);
         this.efeito = efeito;
         this.custoMP = custoMP;
-        this.chanceEfeito = chanceEfeito;
+        this.chanceEfeito = efeito.getChance();
     }
     @Override
     public int calcularDano() {
-        return 0;
+        return getDano();
     }
 
     @Override
     public void mostrarAtributos() {
         System.out.println("Nome: " + getNome());
         System.out.println("Dano: " + getDano());
-        System.out.println("ChanceCritico: " + getChanceCritico());
-        System.out.println("ChanceErro: " + getChanceErro());
-        System.out.println("Classe: " + getClasse());
-        System.out.println("Nivel minimo: " + getNivelMinimo());
+        System.out.println("Chance Critico: " + getChanceCritico());
+        System.out.println("Chance Erro: " + getChanceErro());
         System.out.println("Custo mp: " + getCustoMP());
         System.out.println("Efeito: " + getEfeito());
+        System.out.println();
     }
 
 

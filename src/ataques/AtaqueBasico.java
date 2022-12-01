@@ -16,9 +16,8 @@ public class AtaqueBasico extends Ataque{
     public void mostrarAtributos() {
         System.out.println("Nome: " + getNome());
         System.out.println("Dano: " + getDano());
-        System.out.println("ChanceCritico: " + getChanceCritico());
-        System.out.println("ChanceErro: " + getChanceErro());
-        System.out.println("Classe: " + getClasse());
-        System.out.println("Nivel minimo: " + getNivelMinimo());
+        System.out.println("Chance Critico: " + getChanceCritico());
+        System.out.println("Chance Erro: " + getChanceErro());
+        System.out.println();
     }
 }
