@@ -24,7 +24,7 @@ public class Main {
         System.out.println("Escolha seu personagem e inicie a sua aventura");
 
         personagens.forEach( p -> {
-            System.out.println("Personagem " + personagens.indexOf(p)+1 + ": " + p.imprimirAtributos());
+            System.out.println("Personagem " + (personagens.indexOf(p)+1) + ": " + p.imprimirAtributos());
         });
 
         do {
