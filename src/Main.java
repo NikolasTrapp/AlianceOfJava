@@ -17,6 +17,8 @@ public class Main {
     public static void main(String[] args) {
         boolean flag = true;
 
+
+
         System.out.println("Bem vindo à nossa campanha de RPG!!!");
         System.out.println("Escolha seu personagem e inicie a sua aventura");
 
