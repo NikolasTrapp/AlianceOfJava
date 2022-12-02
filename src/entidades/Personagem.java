@@ -86,6 +86,7 @@ public class Personagem extends Criatura{
     @Override
     public int atacar(Criatura inimigo) {
         Ataque ataque = escolherAtaque();
+        if (ataque == null) return 0;
         int dano = ataque.calcularDano();
         if (equipamento != null) dano += verificarEquipamento(Tipo.ATAQUE);
         inimigo.passarEfeito(ataque);
@@ -111,6 +112,7 @@ public class Personagem extends Criatura{
 
     public Ataque escolherAtaque(){
         boolean flag = true;
+        if (verificarEfeitoStatus()) return null;
         System.out.println("Seus ataques:");
         mostrarAtaques();
         while (flag){
@@ -137,6 +139,8 @@ public class Personagem extends Criatura{
         }
         return null;
     }
+
+
 
 
 

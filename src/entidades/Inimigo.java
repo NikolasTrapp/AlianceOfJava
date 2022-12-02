@@ -15,6 +15,7 @@ public class Inimigo extends Criatura{
 
     @Override
     public int tomarDano(int dano) {
+        System.out.println(getEfeito());
         if (!getEfeito().equals(ListaAtaques.pegarEfeito("Nenhum")) && getEfeito().getTipoEfeito() != TipoEfeito.STATUS){
             int danoEfeito = validarDanoEfeito();
             System.out.println("O inimigo " + getNome() + " sofreu " + danoEfeito + " pontos de dano do efeito " + getEfeito().getNome());
@@ -27,6 +28,7 @@ public class Inimigo extends Criatura{
 
     @Override
     public int atacar(Criatura personagem) {
+        if (verificarEfeitoStatus()) return 0;
         return getDanoBase();
     }
 

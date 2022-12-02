@@ -4,6 +4,7 @@ public enum TipoEfeito {
 
     STATUS,
     ATAQUE,
-    BUFF
+    BUFF,
+    DEBUFF
 
 }

@@ -2,7 +2,7 @@ package ataques;
 
 import java.util.Objects;
 
-public class Efeito {
+public class Efeito implements Cloneable{
 
     private String nome;
     private int dano;
@@ -20,7 +20,6 @@ public class Efeito {
 
 
     public int getDano() {
-        System.out.println(dano + " " + turno + " " + (dano*turno));
         if (getNome().equalsIgnoreCase("Sangramento")) return dano * turno;
         return dano;
     }
@@ -84,5 +83,15 @@ public class Efeito {
 
     public void setTipoEfeito(TipoEfeito tipoEfeito) {
         this.tipoEfeito = tipoEfeito;
+    }
+
+    @Override
+    public Efeito clone() {
+        try {
+            Efeito clone = (Efeito) super.clone();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

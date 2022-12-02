@@ -16,8 +16,9 @@ public class ListaAtaques {
                     new Efeito("Decomposição", 4, 2, TipoEfeito.ATAQUE),
                     new Efeito("Congelamento", 0, 3, TipoEfeito.STATUS),
                     new Efeito("Paralizia", 0, 3, TipoEfeito.STATUS),
-                    new Efeito("Regeneração", 5, 2, TipoEfeito.BUFF),
-                    new Efeito("Invencivel", 0, 1, TipoEfeito.BUFF)
+                    new Efeito("Regeneração", 5, 2, TipoEfeito.DEBUFF),
+                    new Efeito("Invencivel", 0, 1, TipoEfeito.DEBUFF),
+                    new Efeito("Força divina", 10, 1, TipoEfeito.BUFF)
             )
     );
 

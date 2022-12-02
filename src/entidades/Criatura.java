@@ -30,7 +30,6 @@ public abstract class Criatura {
         int random = (int)Math.floor(Math.random()*(100)+1);
         if (getEfeito().getTurno() >= getEfeito().getNumeroMaxTurnos()){
             limparEfeito();
-            ataque.getEfeito().resetTurnos();
         }
         if (ataque.getEfeito().getNome().equalsIgnoreCase("Nenhum")) {
             System.out.println("O ataque não possui nenhum efeito, logo não há efeitos a serem aplicados ao inimigo");
@@ -42,7 +41,7 @@ public abstract class Criatura {
             System.out.println("Você não conseguiu aplicar o efeito ao inimigo");
             return;
         } else {
-            setEfeito(ataque.getEfeito());
+            setEfeito(ataque.getEfeito().clone());
         }
     }
 
@@ -51,6 +50,15 @@ public abstract class Criatura {
         else if (getEfeito().getTipoEfeito() == TipoEfeito.ATAQUE) return getEfeito().getDano();
         else if (getEfeito().getTipoEfeito() == TipoEfeito.BUFF) return -getEfeito().getDano();
         else return 0;
+    }
+
+    protected boolean verificarEfeitoStatus(){
+        if (getEfeito().getTipoEfeito() == TipoEfeito.STATUS && getEfeito().getTurno() <= getEfeito().getNumeroMaxTurnos()){
+            getEfeito().addTurno();
+            return true;
+        }
+        limparEfeito();
+        return false;
     }
 
 
@@ -115,8 +123,7 @@ public abstract class Criatura {
     }
 
     protected void limparEfeito(){
-        setEfeito(ListaAtaques.pegarEfeito("Nenhum"));
-        System.out.println(getEfeito());
+        setEfeito(ListaAtaques.pegarEfeito("Nenhum").clone());
     }
 
 }
