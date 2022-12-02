@@ -15,7 +15,7 @@ public class ListaAtaques {
     );
     public static ArrayList<AtaqueEspecial> ataqueEspecial = new ArrayList<>(
             Arrays.asList(
-                    new AtaqueEspecial("Jogo sujo", 30, 1, 0, Efeito.NENHUM, 2, "Guerreiro", 1)
+                    new AtaqueEspecial("Jogo sujo", 30, 1, 0, 0, Efeito.NENHUM, 2, "Guerreiro", 1)
             )
     );
 

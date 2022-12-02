@@ -74,32 +74,14 @@ public class Personagem extends Criatura{
     public int tomarDano(int dano) {
         dano -=  verificarEquipamento(Tipo.DEFESA);
         setHp(getHp()-dano + verificarEquipamento(Tipo.CURA));
+        dano += verificarEfeito();
         return dano;
     }
 
     @Override
     public int atacar() {
-        int dano = 90;
-        System.out.println("Seus ataques:");
-//        mostrarAtaques();
-
-        boolean flag = true;
-        while (flag){
-            try {
-                System.out.println("Você deseja usar um ataque especial? (s para SIM, senão digite qualquer coisa)");
-                char c = sc.next().charAt(0);
-                System.out.println("Qual ataque você deseja usar:");
-                int opc = sc.nextInt();
-                dano += (c == 's' || c == 'S') ? ataqueEspecial.get(opc-1).calcularDano() : ataquesBasicos.get(opc-1).calcularDano();
-                if (equipamento != null) dano += verificarEquipamento(Tipo.ATAQUE);
-                flag = false;
-            } catch (IndexOutOfBoundsException err){
-                System.out.println("Verifique a opção selecionada!");
-            } catch (InputMismatchException err){
-                System.out.println("Digita um numero aí meu!");
-            }
-        }
-
+        int dano = escolherAtaque().calcularDano();
+        if (equipamento != null) dano += verificarEquipamento(Tipo.ATAQUE);
         return dano;
     }
 
@@ -115,12 +97,46 @@ public class Personagem extends Criatura{
         return 0;
     }
 
+    private int verificarEfeito(){
+        if (getEfeito() == null) return 0;
+        else if (getEfeito().getTurno() >= 3) return limparEfeito();
+        else if (getEfeito() == Efeito.DECOMPOSICAO || getEfeito() == Efeito.VENENO) return getEfeito().getDano();
+        else return 0;
+    }
+
     public void carregarAtaques(){
         this.ataquesBasicos = ListaAtaques.ataquesBasicos.stream().filter(ataque -> ataque.getClasse().equals(getNome()) && getLevel() <= ataque.getNivelMinimo()).collect(Collectors.toCollection(ArrayList::new));
         this.ataqueEspecial = ListaAtaques.ataqueEspecial.stream().filter(ataque -> ataque.getClasse().equals(getNome()) && getLevel() <= ataque.getNivelMinimo()).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    //public void escolherAtaque(){}
+    public Ataque escolherAtaque(){
+        boolean flag = true;
+        System.out.println("Seus ataques:");
+        mostrarAtaques();
+        while (flag){
+            try{
+                System.out.println("Qual tipo de ataque você gostaria de usar? Basico (b) ou Especial (e):");
+                char opc = sc.next().charAt(0);
+                System.out.println("Qual o numero do ataque que gostarias de usar:");
+                int ataque = sc.nextInt()-1;
+
+                if (opc == 'b' || opc == 'B'){
+                    flag = false;
+                    return ataquesBasicos.get(ataque);
+                } else if (opc == 'e' || opc == 'E'){
+                    flag = false;
+                    return ataqueEspecial.get(ataque);
+                } else {
+                    System.out.println("Verifique a opção informada!");
+                }
+            } catch (IndexOutOfBoundsException err){
+                System.out.println("Verifique a opção selecionada!");
+            } catch (InputMismatchException err){
+                System.out.println("Digita um numero aí meu!");
+            }
+        }
+        return null;
+    }
 
 
 
@@ -170,5 +186,10 @@ public class Personagem extends Criatura{
 
     public void setEquipamento(Equipamento equipamento) {
         this.equipamento = equipamento;
+    }
+
+    private int limparEfeito(){
+        this.setEfeito(Efeito.NENHUM);
+        return 0;
     }
 }

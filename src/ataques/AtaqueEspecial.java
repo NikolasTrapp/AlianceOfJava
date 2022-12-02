@@ -6,15 +6,48 @@ public class AtaqueEspecial extends Ataque{
     private int custoMP;
     private int chanceEfeito;
 
-    public AtaqueEspecial(String nome, int dano, int chanceCritico, int chanceErro, Efeito efeito, int custoMP, String classe, int nivelMinimo) {
+    public AtaqueEspecial(String nome, int dano, int chanceCritico, int chanceErro, int chanceEfeito, Efeito efeito, int custoMP, String classe, int nivelMinimo) {
         super(nome, dano, chanceCritico, chanceErro, classe, nivelMinimo);
         this.efeito = efeito;
         this.custoMP = custoMP;
-        this.chanceEfeito = efeito.getChance();
+        this.chanceEfeito = chanceEfeito;
     }
     @Override
     public int calcularDano() {
-        return getDano();
+        int randomCe = getRandom(1, 100); // Chance de erro
+        int randomCc = getRandom(1, 100); // Chance de crítico
+        int randomEf = getRandom(1, 100); // Chance de aplicar efeito
+        int danoTotal = getDano();
+
+        if (randomCc <= getChanceCritico()){
+            System.out.println("Você critou!!!");
+            danoTotal += getDano() * 1.5;
+        }
+
+        if (randomCe <= getChanceErro()) {
+            System.out.println("Você errou o ataque!");
+            danoTotal = 0;
+        }
+
+        if (randomEf <= getChanceEfeito()) {
+            int danoEfeito = verificarEfeito();
+            System.out.println("o efeito " + efeito + " do seu ataque resultou em um adicional de " + danoEfeito + " pontos de dano");
+            danoTotal += danoEfeito;
+        }
+        return danoTotal;
+    }
+
+    private int verificarEfeito() {
+        if (efeito == null || efeito == Efeito.NENHUM) return 0;
+        else if (efeito == Efeito.CHAMAS){
+            efeito.aplicarEfeito();
+            return efeito.getDano();
+        }
+        else if (efeito == Efeito.SANGRAMENTO) {
+            efeito.aplicarEfeito();
+            return efeito.getDanoMultiplicado();
+        }
+        else return 0;
     }
 
     @Override
@@ -27,8 +60,6 @@ public class AtaqueEspecial extends Ataque{
         System.out.println("Efeito: " + getEfeito());
         System.out.println();
     }
-
-
 
 
 

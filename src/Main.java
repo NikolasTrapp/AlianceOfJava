@@ -17,6 +17,8 @@ public class Main {
     public static void main(String[] args) {
         boolean flag = true;
 
+
+
         System.out.println("Bem vindo à nossa campanha de RPG!!!");
         System.out.println("Escolha seu personagem e inicie a sua aventura");
 
@@ -57,8 +59,6 @@ public class Main {
 
     public static void iniciarRodada(){
         gerarInimigos(personagem.getLevel());
-//        inimigos.forEach(inimigo -> System.out.println(inimigo.getNome()));
-//        System.out.println(personagem.getHp());
         int turno = 1;
         while (inimigos.size() > 0 && personagem.getHp() > 0){
             System.out.println("Turno: " + turno);

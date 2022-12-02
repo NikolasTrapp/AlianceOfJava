@@ -23,6 +23,10 @@ public abstract class Ataque {
     public abstract int calcularDano();
     public abstract void mostrarAtributos();
 
+    public int getRandom(int min, int max){
+        return (int)Math.floor(Math.random()*(max-min+1)+min);
+    }
+
 
 
     //GETTERS E SETTERS

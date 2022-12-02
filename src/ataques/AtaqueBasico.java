@@ -9,7 +9,21 @@ public class AtaqueBasico extends Ataque{
 
     @Override
     public int calcularDano() {
-        return 0;
+        int randomCe = getRandom(1, 100); // Chance de erro
+        int randomCc = getRandom(1, 100); // Chance de crítico
+        System.out.println(randomCe + " " + randomCc);
+        int danoTotal = getDano();
+
+        if (randomCc <= getChanceCritico()){
+            System.out.println("Você critou!!!");
+            danoTotal *= 1.5;
+        }
+
+        if (randomCe <= getChanceErro()) {
+            System.out.println("Você errou o ataque!");
+            danoTotal = 0;
+        }
+        return danoTotal;
     }
 
     @Override
