@@ -2,20 +2,31 @@ package ataques;
 
 public class AtaqueEspecial extends Ataque{
 
-    private Efeito efeito;
-    private int custoMP;
-    private int chanceEfeito;
 
-    public AtaqueEspecial(String nome, int dano, int chanceCritico, int chanceErro, Efeito efeito, int custoMP, String classe, int nivelMinimo) {
-        super(nome, dano, chanceCritico, chanceErro, classe, nivelMinimo);
-        this.efeito = efeito;
+    private int custoMP;
+
+    public AtaqueEspecial(String nome, int dano, int chanceCritico, int chanceErro, int chanceEfeito, Efeito efeito, int custoMP, String classe, int nivelMinimo) {
+        super(nome, dano, chanceCritico, chanceErro, chanceEfeito, classe, nivelMinimo, efeito);
         this.custoMP = custoMP;
-        this.chanceEfeito = efeito.getChance();
     }
     @Override
     public int calcularDano() {
-        return getDano();
+        int randomCe = getRandom(1, 100); // Chance de erro
+        int randomCc = getRandom(1, 100); // Chance de crítico
+        int danoTotal = getDano();
+
+        if (randomCc <= getChanceCritico()){
+            System.out.println("Você critou!!!");
+            danoTotal += getDano() * 1.5;
+        }
+
+        if (randomCe <= getChanceErro()) {
+            System.out.println("Você errou o ataque!");
+            danoTotal = 0;
+        }
+        return danoTotal;
     }
+
 
     @Override
     public void mostrarAtributos() {
@@ -30,17 +41,7 @@ public class AtaqueEspecial extends Ataque{
 
 
 
-
-
     //GETTERS E SETTERS
-
-    public Efeito getEfeito() {
-        return efeito;
-    }
-
-    public void setEfeito(Efeito efeito) {
-        this.efeito = efeito;
-    }
 
     public int getCustoMP() {
         return custoMP;
@@ -48,14 +49,5 @@ public class AtaqueEspecial extends Ataque{
 
     public void setCustoMP(int custoMP) {
         this.custoMP = custoMP;
-    }
-
-
-    public int getChanceEfeito() {
-        return chanceEfeito;
-    }
-
-    public void setChanceEfeito(int chanceEfeito) {
-        this.chanceEfeito = chanceEfeito;
     }
 }

@@ -1,9 +1,18 @@
 package entidades;
 
-public abstract class Chefao {
+public class Chefao extends Criatura{
 
-    private int hp;
-    private String nome;
+    public Chefao(double hpBase, String nome, int danoBase) {
+        super(hpBase, nome, danoBase);
+    }
 
+    @Override
+    public int tomarDano(int dano) {
+        return 0;
+    }
 
+    @Override
+    public int atacar(Criatura inimigo) {
+        return 0;
+    }
 }

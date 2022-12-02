@@ -6,22 +6,30 @@ public abstract class Ataque {
     private int dano;
     private int chanceCritico;
     private int chanceErro;
+    private int chanceEfeito;
     private String classe;
     private int nivelMinimo;
+    private Efeito efeito;
 
 
-    public Ataque(String nome, int dano, int chanceCritico, int chanceErro, String classe, int nivelMinimo) {
+    public Ataque(String nome, int dano, int chanceCritico, int chanceErro, int chanceEfeito, String classe, int nivelMinimo, Efeito efeito) {
         this.nome = nome;
         this.dano = dano;
         this.chanceCritico = chanceCritico;
         this.chanceErro = chanceErro;
+        this.chanceEfeito = chanceEfeito;
         this.classe = classe;
         this.nivelMinimo = nivelMinimo;
+        this.efeito = efeito;
     }
 
 
     public abstract int calcularDano();
     public abstract void mostrarAtributos();
+
+    public int getRandom(int min, int max){
+        return (int)Math.floor(Math.random()*(max-min+1)+min);
+    }
 
 
 
@@ -75,6 +83,19 @@ public abstract class Ataque {
         this.nivelMinimo = nivelMinimo;
     }
 
+    public Efeito getEfeito() {
+        return efeito;
+    }
 
+    public void setEfeito(Efeito efeito) {
+        this.efeito = efeito;
+    }
 
+    public int getChanceEfeito() {
+        return chanceEfeito;
+    }
+
+    public void setChanceEfeito(int chanceEfeito) {
+        this.chanceEfeito = chanceEfeito;
+    }
 }

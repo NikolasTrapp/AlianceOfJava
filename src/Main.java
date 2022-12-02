@@ -57,8 +57,6 @@ public class Main {
 
     public static void iniciarRodada(){
         gerarInimigos(personagem.getLevel());
-//        inimigos.forEach(inimigo -> System.out.println(inimigo.getNome()));
-//        System.out.println(personagem.getHp());
         int turno = 1;
         while (inimigos.size() > 0 && personagem.getHp() > 0){
             System.out.println("Turno: " + turno);
@@ -67,10 +65,10 @@ public class Main {
             inimigos.forEach(inimigo -> inimigo.imprimirInimigo(inimigos.indexOf(inimigo)+1));
 
             System.out.print("Qual inimigo deseja atacar: ");
-            int opc = sc.nextInt();
+            int opc = sc.nextInt()-1;
 
-            Inimigo inimigoTurno = inimigos.get(opc-1);
-            int danoAtaque = personagem.atacar();
+            Inimigo inimigoTurno = inimigos.get(opc);
+            int danoAtaque = personagem.atacar(inimigoTurno);
             inimigoTurno.tomarDano(danoAtaque);
 
             System.out.printf("Você desferiu uma quantidade de %d de dano ao %s!!!%n", danoAtaque, inimigoTurno.getNome());
@@ -83,7 +81,7 @@ public class Main {
 
             System.out.println("Vez dos inimigos!");
             for (Inimigo inimigo : inimigos){
-                int dano = personagem.tomarDano(inimigo.atacar());
+                int dano = personagem.tomarDano(inimigo.atacar(personagem));
                 System.out.println("O inimigo " + inimigo.getNome() +
                         " desferiu a você uma quantidade de " + dano +
                         " de dano, lhe resta " + personagem.getHp() + " pontos de vida");

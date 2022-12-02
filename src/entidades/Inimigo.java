@@ -1,5 +1,9 @@
 package entidades;
 
+import ataques.Efeito;
+import ataques.ListaAtaques;
+import ataques.TipoEfeito;
+
 public class Inimigo extends Criatura{
 
     private double xpDrop;
@@ -11,12 +15,18 @@ public class Inimigo extends Criatura{
 
     @Override
     public int tomarDano(int dano) {
+        if (!getEfeito().equals(ListaAtaques.pegarEfeito("Nenhum")) && getEfeito().getTipoEfeito() != TipoEfeito.STATUS){
+            int danoEfeito = validarDanoEfeito();
+            System.out.println("O inimigo " + getNome() + " sofreu " + danoEfeito + " pontos de dano do efeito " + getEfeito().getNome());
+            dano += danoEfeito;
+            getEfeito().addTurno();
+        }
         setHp(getHp()-dano);
         return dano;
     }
 
     @Override
-    public int atacar() {
+    public int atacar(Criatura personagem) {
         return getDanoBase();
     }
 
@@ -28,6 +38,8 @@ public class Inimigo extends Criatura{
         System.out.println();
 
     }
+
+
 
 
     //GETTERS E SETTERS
