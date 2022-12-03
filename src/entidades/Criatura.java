@@ -39,13 +39,9 @@ public abstract class Criatura {
         if (getEfeito().getTurno() > getEfeito().getNumeroMaxTurnos()){
             limparEfeito();
         }
-        if (ataque.getEfeito().getNome().equalsIgnoreCase("Nenhum")) {
-            System.out.println("O ataque não possui nenhum efeito, logo não há efeitos a serem aplicados ao inimigo");
-            return;
-        } else if (ataque.getEfeito().equals(getEfeito())){
-            System.out.println("O inimigo já possui este efeito, logo não compensa adicioná-lo de novo");
-            return;
-        } else if (random > ataque.getChanceEfeito()){
+        if (ataque.getEfeito().getNome().equalsIgnoreCase("Nenhum")) return;
+        else if (ataque.getEfeito().equals(getEfeito())) return;
+        else if (random > ataque.getChanceEfeito() && !ataque.getEfeito().getNome().equalsIgnoreCase("Nenhum")){
             System.out.println("Você não conseguiu aplicar o efeito ao inimigo");
             return;
         } else {

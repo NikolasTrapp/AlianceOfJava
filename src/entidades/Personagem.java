@@ -75,13 +75,14 @@ public class Personagem extends Criatura{
          *
          * @param xp A quantidade de xp para ser adicionada.
          */
-        System.out.println("Você ganhou " + xp + " de XP!!!");
+        System.out.println("☆☆☆ Você ganhou " + xp + " de XP!!! ☆☆☆");
 
         if (getXp() + xp >= getXpBar()){
             setXp((getXp() + xp) % getXpBar());
             this.level++;
+            System.out.println("☆☆☆☆☆ Parabéns, Você subiu de nivel!!! ☆☆☆☆☆");
             setXpBar(getXpBar()+10);
-            carregarAtaques();
+//            carregarAtaques();
         } else {
             this.xp += xp;
         }
@@ -126,9 +127,10 @@ public class Personagem extends Criatura{
          */
         Ataque ataque = escolherAtaque();
         if (ataque == null) return 0;
-        int dano = ataque.calcularDanoAtaque();
+        int dano = getDanoBase();
+        dano += ataque.calcularDanoAtaque();
         dano += verificarEfeitoBuffDebuff();
-        if (equipamento != null) dano += verificarEquipamento(Tipo.ATAQUE);
+        dano += verificarEquipamento(Tipo.ATAQUE);
         inimigo.passarEfeito(ataque);
         return dano;
     }
@@ -159,8 +161,8 @@ public class Personagem extends Criatura{
         /**
          * Esta função carrega os ataques que são pertencentes a este personagem.
          */
-        this.ataquesBasicos = ListaAtaques.ataquesBasicos.stream().filter(ataque -> ataque.getClasse().equals(getNome()) && getLevel() <= ataque.getNivelMinimo()).collect(Collectors.toCollection(ArrayList::new));
-        this.ataqueEspecial = ListaAtaques.ataquesEspecial.stream().filter(ataque -> ataque.getClasse().equals(getNome()) && getLevel() <= ataque.getNivelMinimo()).collect(Collectors.toCollection(ArrayList::new));
+        this.ataquesBasicos = ListaAtaques.ataquesBasicos.stream().filter(ataque -> ataque.temNaLista(getNome()) && getLevel() <= ataque.getNivelMinimo()).collect(Collectors.toCollection(ArrayList::new));
+        this.ataqueEspecial = ListaAtaques.ataquesEspecial.stream().filter(ataque -> ataque.temNaLista(getNome()) && getLevel() <= ataque.getNivelMinimo()).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public Ataque escolherAtaque(){
@@ -206,12 +208,14 @@ public class Personagem extends Criatura{
     }
 
 
-
     @Override
     public String toString() {
-        return "Personagem{" +
-                "mp=" + mp +
-                '}';
+        super.toString();
+        return "mp=" + mp +
+                ", xp=" + xp +
+                ", xpBar=" + xpBar +
+                ", level=" + level +
+                ", equipamento=" + equipamento;
     }
 
     //GETTERS E SETTERS

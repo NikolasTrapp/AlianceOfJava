@@ -5,8 +5,8 @@ public class AtaqueEspecial extends Ataque{
 
     private int custoMP;
 
-    public AtaqueEspecial(String nome, int dano, int chanceCritico, int chanceErro, int chanceEfeito, Efeito efeito, int custoMP, String classe, int nivelMinimo) {
-        super(nome, dano, chanceCritico, chanceErro, chanceEfeito, classe, nivelMinimo, efeito);
+    public AtaqueEspecial(String nome, int dano, int chanceCritico, int chanceErro, int chanceEfeito, Efeito efeito, int custoMP, String[] classes, int nivelMinimo) {
+        super(nome, dano, chanceCritico, chanceErro, chanceEfeito, classes, nivelMinimo, efeito);
         this.custoMP = custoMP;
     }
     @Override
