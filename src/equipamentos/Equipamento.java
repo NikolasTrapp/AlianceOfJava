@@ -18,6 +18,11 @@ public class Equipamento {
     }
 
     public int usar() {
+        /**
+         * Esta função verifica se o personagem quer usar o equipamento.
+         *
+         * @return O dano causado/protegido pelo equipamento.
+         */
         System.out.println("Você deseja usar seu item " + getNome() +
                 "? Ainda lhe restam " + getUsos() + " usos! (s para SIM, senão digite qualquer coisa)");
         char c = sc.next().charAt(0);

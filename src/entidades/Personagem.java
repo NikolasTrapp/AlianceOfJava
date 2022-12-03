@@ -31,6 +31,9 @@ public class Personagem extends Criatura{
 
 
     public void mostrarAtaques() {
+        /**
+         * Esta função mostra os ataques que o personagem possui.
+         */
         System.out.println();
         System.out.println("Ataques Básicos:");
         imprimirAtaques(ataquesBasicos);
@@ -40,6 +43,11 @@ public class Personagem extends Criatura{
     }
 
     private void imprimirAtaques(ArrayList<? extends Ataque> ataques){
+        /**
+         * Esta função imprime os ataques básicos ou avançados que o personagem possui.
+         *
+         * @param ataques Lista de ataques do personagem.
+         */
         ataques.forEach(atk -> {
             System.out.println("Ataque " + "\"" + atk.getNome() + "\"" + ", numero: " + (ataques.indexOf(atk) + 1) + ":");
             atk.mostrarAtributos();
@@ -47,6 +55,9 @@ public class Personagem extends Criatura{
     }
 
     public void mostrarAtributos() {
+        /**
+         * Esta função mostra os atributos do personagem
+         */
         System.out.println("----------ATRIBUTOS----------");
         System.out.println("Nome: " + getNome());
         System.out.println("HP: " + getHpBase());
@@ -57,6 +68,13 @@ public class Personagem extends Criatura{
     }
 
     public void addXp(double xp) {
+        /**
+         * Esta função faz a lógica de adicionar xp ao personagem,
+         * aumentando o seu nivel caso atinja a quantidade necessária
+         * da xp bar e em seguida carrega novos ataques caso haja algum.
+         *
+         * @param xp A quantidade de xp para ser adicionada.
+         */
         System.out.println("Você ganhou " + xp + " de XP!!!");
 
         if (getXp() + xp >= getXpBar()){
@@ -72,6 +90,16 @@ public class Personagem extends Criatura{
 
     @Override
     public int tomarDano(int dano) {
+        /**
+         * Esta função faz a parte da lógica do personagem tomar dano, ela
+         * verifica se o personagem não possui nenhum efeito de ATAQUE ou
+         * se ele tem algum equipamento que o proteja de danos, em seguida
+         * retorna o dano a causado.
+         *
+         * @param dano O dano a ser causado ao personagem.
+         *
+         * @return O dano causado ao personagem.
+         */
         if (!getEfeito().equals(ListaAtaques.pegarEfeito("Nenhum")) && getEfeito().getTipoEfeito() != TipoEfeito.STATUS){
             int danoEfeito = validarDanoEfeito();
             System.out.println(getNome() + " sofreu " + danoEfeito + " pontos de dano do efeito " + getEfeito().getNome());
@@ -85,6 +113,17 @@ public class Personagem extends Criatura{
 
     @Override
     public int atacar(Criatura inimigo) {
+        /**
+         * Esta função se responsabiliza pela função de atacar algum inimigo/boss,
+         * ela faz as verificações se o personagem possui efeitos de BUFF, DEBUFF
+         * ou status, ou algum equipamento que aumente seu dano e retorna o dano
+         * que ele irá causar. Também aplica um efeito ao inimigo caso o ataque
+         * selecionado tenha algum.
+         *
+         * @param inimigo O inimigo a ser atacado e aplicado um possivel efeito.
+         *
+         * @return O dano total do ataque desferido.
+         */
         Ataque ataque = escolherAtaque();
         if (ataque == null) return 0;
         int dano = ataque.calcularDanoAtaque();
@@ -95,6 +134,15 @@ public class Personagem extends Criatura{
     }
 
     private int verificarEquipamento(Tipo tipo){
+        /**
+         * Esta função verifica se o usuário possui algum equipamento com base
+         * no efeito que ele deseja obter, caso tenha ele verifica se o equipamento
+         * possui usos sobressalentes e retorna o numero da proteção ou dano extra.
+         *
+         * @param tipo O tipo do equipamento que se deseja verificar.
+         *
+         * @return O numero de dano ou proteção aplicada.
+         */
         if (equipamento == null) return 0;
         if (equipamento.getUsos() <= 0) {
             setEquipamento(null);
@@ -108,11 +156,20 @@ public class Personagem extends Criatura{
 
 
     public void carregarAtaques(){
+        /**
+         * Esta função carrega os ataques que são pertencentes a este personagem.
+         */
         this.ataquesBasicos = ListaAtaques.ataquesBasicos.stream().filter(ataque -> ataque.getClasse().equals(getNome()) && getLevel() <= ataque.getNivelMinimo()).collect(Collectors.toCollection(ArrayList::new));
         this.ataqueEspecial = ListaAtaques.ataquesEspecial.stream().filter(ataque -> ataque.getClasse().equals(getNome()) && getLevel() <= ataque.getNivelMinimo()).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public Ataque escolherAtaque(){
+        /**
+         * Esta função permite ao personagem escolher qual ataque ele irá desferir
+         * fazendo os de tipo de aatque e custo de mp.
+         *
+         * @return O ataque escolhido
+         */
         boolean flag = true;
         if (verificarEfeitoStatus()) return null;
         System.out.println("Seus ataques:");
@@ -147,8 +204,6 @@ public class Personagem extends Criatura{
         }
         return null;
     }
-
-
 
 
 

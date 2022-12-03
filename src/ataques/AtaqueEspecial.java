@@ -11,6 +11,12 @@ public class AtaqueEspecial extends Ataque{
     }
     @Override
     public int calcularDanoAtaque() {
+        /**
+         * Esta função calcula o dano do ataque, verificando se o ataque critou
+         * ou se errou o ataque
+         *
+         * @return O dano total causado pelo ataque.
+         */
         int randomCe = getRandom(1, 100); // Chance de erro
         int randomCc = getRandom(1, 100); // Chance de crítico
         int danoTotal = getDano();

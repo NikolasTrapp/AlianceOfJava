@@ -27,6 +27,14 @@ public abstract class Criatura {
     public abstract int atacar(Criatura inimigo);
 
     public void passarEfeito(Ataque ataque){
+        /**
+         * Esta função verifica se o efeito a ser passado a uma criatura é
+         * diferente de nenhum, se a criatura já possui este efeito e joga um
+         * dado que verifica se o efeito foi aplicado ou não com base na chance
+         * de efeito do ataque.
+         *
+         * @param ataque O ataque que está sendo enviado.
+         */
         int random = (int)Math.floor(Math.random()*(100)+1);
         if (getEfeito().getTurno() > getEfeito().getNumeroMaxTurnos()){
             limparEfeito();
@@ -46,6 +54,14 @@ public abstract class Criatura {
     }
 
     public int validarDanoEfeito(){
+        /**
+         * Esta função faz a lógica de calcular o dano dos efeitos que são do
+         * tipo ATAQUE, ex: sangramento, chamas... Ela verifica se o efeito que
+         * a criatura possui já passou seu numero de turnos, verifica se a criatura
+         * possui algum efeito e se o efeito é de ATAQUE.
+         *
+         * @return O dano causado pelo efeito.
+         */
         int danoEfeito = 0;
         if (getEfeito().getTurno() > getEfeito().getNumeroMaxTurnos()) limparEfeito();
         if (getEfeito().getNome().equalsIgnoreCase("Nenhum")) return 0;
@@ -62,6 +78,13 @@ public abstract class Criatura {
     }
 
     protected boolean verificarEfeitoStatus(){
+        /**
+         * Esta é uma função complementar que verifica se a criatura possui
+         * algum efeito do tipo STATUS. ex: Congelamento, Paralizia... E
+         * retorna true/false e adiciona um turno ao efeito.
+         *
+         * @return True se a criatura possui o efeito, False se não possui.
+         */
         if (getEfeito().getTipoEfeito() == TipoEfeito.STATUS && getEfeito().getTurno() <= getEfeito().getNumeroMaxTurnos()){
             getEfeito().addTurno();
             return true;
@@ -70,6 +93,14 @@ public abstract class Criatura {
     }
 
     protected int verificarEfeitoBuffDebuff(){
+        /**
+         * Esta função valida se a criaura possui um efeito de BUFF ou DEBUFF
+         * ex: Fraqueza, Força... Ela verifica se o efeito passou o seu numero
+         * de turnos, verifica se a criatura possui um efeito diferente de nenhum
+         * e calcula o dano que irá aumentar ou diminuir do ataque da criatura.
+         *
+         * @return O dano adicional ou reduzido do efeito.
+         */
         if (getEfeito().getTurno() > getEfeito().getNumeroMaxTurnos()) limparEfeito();
         else if (getEfeito().getNome().equalsIgnoreCase("Nenhum")) return 0;
         else if (getEfeito().getTipoEfeito() == TipoEfeito.BUFF){

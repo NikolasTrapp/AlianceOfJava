@@ -35,8 +35,10 @@ public class Main {
     }
 
     public static void gerarInimigos(int levelPersonagem){
-        /*
-        Esta função cria os inimigos e adiciona-os na lista principal de inimigos
+        /**
+         * Esta função cria os inimigos e adiciona-os na lista principal de inimigos.
+         *
+         * @param levelPersonagem O level atual do personagem.
          */
         for (int i = 0; i < 4; i++){
             int n = getRandom(1, 5);
@@ -50,11 +52,11 @@ public class Main {
     }
 
     public static void iniciarRodada(){
-        /*
-        Esta função controla uma unica onda de inimigos, ela gera os inimigos a
-        partir do nivel de xp do personagem, e logo em seguida ela controla o combate
-        pedindo ao usuário o ataque que ele deseja desferir e fazendo os inimigos
-        atacarem ele, além de verificar se todos os inimigos possuem algum efeito
+        /**
+         * Esta função controla uma unica onda de inimigos, ela gera os inimigos a
+         * partir do nivel de xp do personagem, e logo em seguida ela controla o combate
+         * pedindo ao usuário o ataque que ele deseja desferir e fazendo os inimigos
+         * atacarem ele, além de verificar se todos os inimigos possuem algum efeito.
          */
         gerarInimigos(personagem.getLevel()); //Gerar inimigos
         int turno = 1; //Numero do turno atual
@@ -91,11 +93,15 @@ public class Main {
     }
 
     public static Criatura escolherCriatura(ArrayList<? extends Criatura> lista){
-        /*
-        Esta função tem o papel de permitir o usuário escolher uma criatura, sendo
-        que esta pode ser um inimigo ou o seu personagem, ela trata as exceções como
-        IndexOutOfBoundsException (Caso o usuário escolha algo que não existe)
-        e InputMismatchException (Caso o usuário digite uma letra)
+        /**
+         * Esta função tem o papel de permitir o usuário escolher uma criatura, sendo
+         * que esta pode ser um inimigo ou o seu personagem, ela trata as exceções como
+         * IndexOutOfBoundsException (Caso o usuário escolha algo que não existe)
+         * e InputMismatchException (Caso o usuário digite uma letra).
+         *
+         * @param lista A lista de criaturas que o sistema deseja fazer uma escolha.
+         *
+         * @return A criatura escolhida.
          */
         boolean flag = true;
         do {
@@ -117,17 +123,21 @@ public class Main {
     }
 
     public static void verificarSeInimigoMorreu(Inimigo inimigo){
-        /*
-        Esta função tem o papel de verificar se o inimigo vai morrer
-        para o seu efeito (Caso ele possua algum)
+        /**
+         * Esta função tem o papel de verificar se o inimigo vai morrer
+         * para o seu efeito (Caso ele possua algum).
+         *
+         * @param inimimo O inimigo para verificar se vai morrer para o efeito.
          */
         inimigo.tomarDano(inimigo.validarDanoEfeito());
         matarInimigo(inimigo);
     }
 
     public static void matarInimigo(Inimigo inimigo){
-        /*
-        Esta função tem o papel de verificar se o inimigo morreu
+        /**
+         * Esta função tem o papel de verificar se o inimigo morreu.
+         *
+         * @param inimigo O inimigo para verificar se está morto.
          */
         if (inimigo.getHp() <= 0){
             inimigos.remove(inimigo);
@@ -137,10 +147,10 @@ public class Main {
     }
 
     public static void iniciarRaid(){
-        /*
-        Esta função controla as partes da caminhada, cada caminhada possui 3 ondas
-        de inimigos e ao fim de cada há um BOSS e um baú, além de que o personagem
-        cura sua vida.
+        /**
+         * Esta função controla as partes da caminhada, cada caminhada possui 3 ondas
+         * de inimigos e ao fim de cada há um BOSS e um baú, além de que o personagem
+         * cura sua vida.
          */
         for (int i = 1; i <= 3; i++){
             System.out.println("Rodada: " + i);
@@ -151,7 +161,16 @@ public class Main {
     }
 
     public static int getRandom(int min, int max){
-        //Esta função retorna um numero aleatório
+        /**
+         * Esta função retorna um nímero aleatório com base no numero minimo
+         * e no numero máximo informados.
+         *
+         * @param min Numero minimo.
+         * @param max Numero máximo.
+         *
+         * @return O numero sorteado.
+         */
+
         return (int)Math.floor(Math.random()*(max-min+1)+min);
     }
 
