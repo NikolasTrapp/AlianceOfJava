@@ -74,7 +74,7 @@ public class Personagem extends Criatura{
     public int tomarDano(int dano) {
         if (!getEfeito().equals(ListaAtaques.pegarEfeito("Nenhum")) && getEfeito().getTipoEfeito() != TipoEfeito.STATUS){
             int danoEfeito = validarDanoEfeito();
-            System.out.println("O inimigo " + getNome() + " sofreu " + danoEfeito + " pontos de dano do efeito " + getEfeito().getNome());
+            System.out.println(getNome() + " sofreu " + danoEfeito + " pontos de dano do efeito " + getEfeito().getNome());
             dano += danoEfeito;
             getEfeito().addTurno();
         }
@@ -87,7 +87,8 @@ public class Personagem extends Criatura{
     public int atacar(Criatura inimigo) {
         Ataque ataque = escolherAtaque();
         if (ataque == null) return 0;
-        int dano = ataque.calcularDano();
+        int dano = ataque.calcularDanoAtaque();
+        dano += verificarEfeitoBuffDebuff();
         if (equipamento != null) dano += verificarEquipamento(Tipo.ATAQUE);
         inimigo.passarEfeito(ataque);
         return dano;

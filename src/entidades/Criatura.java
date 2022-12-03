@@ -28,7 +28,7 @@ public abstract class Criatura {
 
     public void passarEfeito(Ataque ataque){
         int random = (int)Math.floor(Math.random()*(100)+1);
-        if (getEfeito().getTurno() >= getEfeito().getNumeroMaxTurnos()){
+        if (getEfeito().getTurno() > getEfeito().getNumeroMaxTurnos()){
             limparEfeito();
         }
         if (ataque.getEfeito().getNome().equalsIgnoreCase("Nenhum")) {
@@ -52,12 +52,12 @@ public abstract class Criatura {
         else if (getEfeito().getTipoEfeito() == TipoEfeito.ATAQUE) {
             danoEfeito = getEfeito().getDano();
             getEfeito().addTurno();
+            System.out.println(getNome() + " sofreu " + danoEfeito + " pontos de dano do efeito " + getEfeito().getNome());
         }
-        else if (getEfeito().getTipoEfeito() == TipoEfeito.BUFF) {
-            danoEfeito = -getEfeito().getDano();
-            getEfeito().addTurno();
-        }
-        System.out.println(getNome() + " sofreu " + danoEfeito + " pontos de dano do efeito " + getEfeito().getNome());
+//        else if (getEfeito().getTipoEfeito() == TipoEfeito.DEBUFF) {
+//            danoEfeito = -getEfeito().getDano();
+//            getEfeito().addTurno();
+//        }
         return danoEfeito;
     }
 
@@ -67,6 +67,24 @@ public abstract class Criatura {
             return true;
         }
         return false;
+    }
+
+    protected int verificarEfeitoBuffDebuff(){
+        System.out.println(getEfeito().getNome());
+        if (getEfeito().getTurno() > getEfeito().getNumeroMaxTurnos()) limparEfeito();
+        else if (getEfeito().getNome().equalsIgnoreCase("Nenhum")) return 0;
+        else if (getEfeito().getTipoEfeito() == TipoEfeito.BUFF){
+            int dano = getEfeito().getDano();
+            getEfeito().addTurno();
+            System.out.println(getNome() + " deu +" + dano + " pontos de dano pois estava com " + getEfeito().getNome());
+            return dano;
+        } else if (getEfeito().getTipoEfeito() == TipoEfeito.DEBUFF){
+            int dano = -getEfeito().getDano();
+            getEfeito().addTurno();
+            System.out.println(getNome() + " deu " + dano + " pontos de dano pois estava com " + getEfeito().getNome());
+            return dano;
+        }
+        return 0;
     }
 
 

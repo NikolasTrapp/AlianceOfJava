@@ -22,14 +22,10 @@ public class Inimigo extends Criatura{
 
     @Override
     public int atacar(Criatura personagem) {
-//        if (!getEfeito().equals(ListaAtaques.pegarEfeito("Nenhum")) && getEfeito().getTipoEfeito() != TipoEfeito.STATUS){
-//            int danoEfeito = validarDanoEfeito();
-//            System.out.println("O inimigo " + getNome() + " sofreu " + danoEfeito + " pontos de dano do efeito " + getEfeito().getNome());
-//            getEfeito().addTurno();
-//            setHp(getHp()-danoEfeito);
-//        }
         if (verificarEfeitoStatus()) return 0;
-        return getDanoBase();
+        int dano = getDano();
+        dano += verificarEfeitoBuffDebuff();
+        return dano;
     }
 
     public void imprimirInimigo(int n){

@@ -79,7 +79,6 @@ public class Main {
 
             System.out.println("Vez dos inimigos!");
             for (Inimigo inimigo : inimigos){
-                System.out.println(inimigoTurno.getEfeito());
                 verificarSeInimigoMorreu(inimigo);
                 int dano = personagem.tomarDano(inimigo.atacar(personagem));
                 System.out.println("O inimigo " + inimigo.getNome() +

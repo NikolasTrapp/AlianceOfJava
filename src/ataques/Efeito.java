@@ -25,12 +25,12 @@ public class Efeito implements Cloneable{
     }
 
 
-//    @Override
-//    public String toString() {
-//        return "Efeito{" +
-//                "nome='" + nome + '\'' +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Efeito{" +
+                "nome='" + nome + '\'' +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {

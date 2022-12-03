@@ -10,7 +10,7 @@ public class AtaqueEspecial extends Ataque{
         this.custoMP = custoMP;
     }
     @Override
-    public int calcularDano() {
+    public int calcularDanoAtaque() {
         int randomCe = getRandom(1, 100); // Chance de erro
         int randomCc = getRandom(1, 100); // Chance de crítico
         int danoTotal = getDano();

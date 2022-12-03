@@ -24,7 +24,7 @@ public abstract class Ataque {
     }
 
 
-    public abstract int calcularDano();
+    public abstract int calcularDanoAtaque();
     public abstract void mostrarAtributos();
 
     public int getRandom(int min, int max){

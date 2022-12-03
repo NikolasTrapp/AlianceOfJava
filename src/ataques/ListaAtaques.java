@@ -16,9 +16,10 @@ public class ListaAtaques {
                     new Efeito("Decomposição", 4, 2, TipoEfeito.ATAQUE),
                     new Efeito("Congelamento", 0, 3, TipoEfeito.STATUS),
                     new Efeito("Paralizia", 0, 3, TipoEfeito.STATUS),
-                    new Efeito("Regeneração", 5, 2, TipoEfeito.DEBUFF),
-                    new Efeito("Invencivel", 0, 1, TipoEfeito.DEBUFF),
-                    new Efeito("Força divina", 10, 1, TipoEfeito.BUFF)
+                    new Efeito("Regeneração", 5, 2, TipoEfeito.BUFF),
+                    new Efeito("Invencivel", 0, 1, TipoEfeito.BUFF),
+                    new Efeito("Força divina", 10, 1, TipoEfeito.BUFF),
+                    new Efeito("Fraqueza", 2, 1, TipoEfeito.DEBUFF)
             )
     );
 
@@ -32,7 +33,7 @@ public class ListaAtaques {
     );
     public static ArrayList<AtaqueEspecial> ataqueEspecial = new ArrayList<>(
             Arrays.asList(
-                    new AtaqueEspecial("Jogo sujo", 30, 1, 0, 100, pegarEfeito("Congelamento"), 2, "Guerreiro", 1)
+                    new AtaqueEspecial("Jogo sujo", 30, 1, 0, 100, pegarEfeito("Fraqueza"), 2, "Guerreiro", 1)
             )
     );
 
