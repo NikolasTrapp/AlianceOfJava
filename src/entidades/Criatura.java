@@ -45,11 +45,20 @@ public abstract class Criatura {
         }
     }
 
-    protected int validarDanoEfeito(){
+    public int validarDanoEfeito(){
+        int danoEfeito = 0;
+        if (getEfeito().getTurno() > getEfeito().getNumeroMaxTurnos()) limparEfeito();
         if (getEfeito().getNome().equalsIgnoreCase("Nenhum")) return 0;
-        else if (getEfeito().getTipoEfeito() == TipoEfeito.ATAQUE) return getEfeito().getDano();
-        else if (getEfeito().getTipoEfeito() == TipoEfeito.BUFF) return -getEfeito().getDano();
-        else return 0;
+        else if (getEfeito().getTipoEfeito() == TipoEfeito.ATAQUE) {
+            danoEfeito = getEfeito().getDano();
+            getEfeito().addTurno();
+        }
+        else if (getEfeito().getTipoEfeito() == TipoEfeito.BUFF) {
+            danoEfeito = -getEfeito().getDano();
+            getEfeito().addTurno();
+        }
+        System.out.println(getNome() + " sofreu " + danoEfeito + " pontos de dano do efeito " + getEfeito().getNome());
+        return danoEfeito;
     }
 
     protected boolean verificarEfeitoStatus(){
@@ -57,7 +66,6 @@ public abstract class Criatura {
             getEfeito().addTurno();
             return true;
         }
-        limparEfeito();
         return false;
     }
 
@@ -123,6 +131,7 @@ public abstract class Criatura {
     }
 
     protected void limparEfeito(){
+        System.out.println("Limpou");
         setEfeito(ListaAtaques.pegarEfeito("Nenhum").clone());
     }
 

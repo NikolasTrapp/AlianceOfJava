@@ -11,7 +11,7 @@ public class ListaAtaques {
             Arrays.asList(
                     new Efeito("Nenhum", 0, 99, TipoEfeito.ATAQUE),
                     new Efeito("Chamas", 2, 3, TipoEfeito.ATAQUE),
-                    new Efeito("Sangramento",3, 2, TipoEfeito.ATAQUE),
+                    new Efeito("Sangramento",3, 3, TipoEfeito.ATAQUE),
                     new Efeito("Envenenamento", 2, 4, TipoEfeito.ATAQUE),
                     new Efeito("Decomposição", 4, 2, TipoEfeito.ATAQUE),
                     new Efeito("Congelamento", 0, 3, TipoEfeito.STATUS),
@@ -32,7 +32,7 @@ public class ListaAtaques {
     );
     public static ArrayList<AtaqueEspecial> ataqueEspecial = new ArrayList<>(
             Arrays.asList(
-                    new AtaqueEspecial("Jogo sujo", 30, 1, 0, 100, pegarEfeito("Sangramento"), 2, "Guerreiro", 1)
+                    new AtaqueEspecial("Jogo sujo", 30, 1, 0, 100, pegarEfeito("Congelamento"), 2, "Guerreiro", 1)
             )
     );
 

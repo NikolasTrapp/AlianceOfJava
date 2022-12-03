@@ -1,3 +1,5 @@
+import ataques.Efeito;
+import ataques.TipoEfeito;
 import entidades.*;
 
 import java.util.*;
@@ -16,8 +18,6 @@ public class Main {
 
     public static void main(String[] args) {
         boolean flag = true;
-
-
 
         System.out.println("Bem vindo à nossa campanha de RPG!!!");
         System.out.println("Escolha seu personagem e inicie a sua aventura");
@@ -51,8 +51,8 @@ public class Main {
             if (n == 1) inimigos.add(new Inimigo("Lobo", 50 * (levelPersonagem+1)*0.5, 3 + (levelPersonagem-1)*2,levelPersonagem*3));
             else if (n == 2) inimigos.add(new Inimigo("Goblin", 55 * (levelPersonagem+1)*0.5, 3 + (levelPersonagem-1)*2,levelPersonagem*3));
             else if (n == 3) inimigos.add(new Inimigo("Troll", 60 * (levelPersonagem+1)*0.5, 3 + (levelPersonagem-1)*2,levelPersonagem*3));
-            else if (n == 4) inimigos.add(new Inimigo("Zumbi", 55 * (levelPersonagem+1)*0.5, 3 + (levelPersonagem-1)*2,levelPersonagem*3));
-            else if (n == 5) inimigos.add(new Inimigo("Urso", 55 * (levelPersonagem+1)*0.5, 3 + (levelPersonagem-1)*2,levelPersonagem*3));
+            else if (n == 4) inimigos.add(new Inimigo("Zumbi", 65 * (levelPersonagem+1)*0.5, 3 + (levelPersonagem-1)*2,levelPersonagem*3));
+            else if (n == 5) inimigos.add(new Inimigo("Urso", 70 * (levelPersonagem+1)*0.5, 3 + (levelPersonagem-1)*2,levelPersonagem*3));
             else throw new NoSuchElementException("Ocorreu um erro ao criar um inimigo!");
         }
     }
@@ -75,20 +75,31 @@ public class Main {
 
             System.out.printf("Você desferiu uma quantidade de %d de dano ao %s!!!%n", danoAtaque, inimigoTurno.getNome());
 
-            if (inimigoTurno.getHp() <= 0){
-                inimigos.remove(inimigoTurno);
-                System.out.println("Inimigo morto!");
-                personagem.addXp(inimigoTurno.getXpDrop());
-            }
+            matarInimigo(inimigoTurno);
 
             System.out.println("Vez dos inimigos!");
             for (Inimigo inimigo : inimigos){
+                System.out.println(inimigoTurno.getEfeito());
+                verificarSeInimigoMorreu(inimigo);
                 int dano = personagem.tomarDano(inimigo.atacar(personagem));
                 System.out.println("O inimigo " + inimigo.getNome() +
                         " desferiu a você uma quantidade de " + dano +
                         " de dano, lhe resta " + personagem.getHp() + " pontos de vida");
             }
             turno ++;
+        }
+    }
+
+    public static void verificarSeInimigoMorreu(Inimigo inimigo){
+        inimigo.tomarDano(inimigo.validarDanoEfeito());
+        matarInimigo(inimigo);
+    }
+
+    public static void matarInimigo(Inimigo inimigo){
+        if (inimigo.getHp() <= 0){
+            inimigos.remove(inimigo);
+            System.out.println("Inimigo morto!");
+            personagem.addXp(inimigo.getXpDrop());
         }
     }
 

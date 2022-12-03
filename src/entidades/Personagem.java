@@ -80,7 +80,6 @@ public class Personagem extends Criatura{
         }
         dano -=  verificarEquipamento(Tipo.DEFESA);
         setHp(getHp()-dano + verificarEquipamento(Tipo.CURA));
-        dano += verificarEfeito();
         return dano;
     }
 
@@ -106,12 +105,6 @@ public class Personagem extends Criatura{
         return 0;
     }
 
-    private int verificarEfeito(){
-        if (getEfeito() == null) return 0;
-        else if (getEfeito().getTurno() >= 3) return limparEfeito();
-        else if (getEfeito() == Efeito.DECOMPOSICAO || getEfeito() == Efeito.VENENO) return getEfeito().getDano();
-        else return 0;
-    }
 
     public void carregarAtaques(){
         this.ataquesBasicos = ListaAtaques.ataquesBasicos.stream().filter(ataque -> ataque.getClasse().equals(getNome()) && getLevel() <= ataque.getNivelMinimo()).collect(Collectors.toCollection(ArrayList::new));
