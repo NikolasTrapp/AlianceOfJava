@@ -1,4 +1,30 @@
-out
+### IntelliJ IDEA ###
 .idea
-projeto-RPG-Devs2Blu.iml
+*.iws
+*.iml
+*.ipr
 
+### VS Code ###
+.vscode/
+
+### Eclipse ###
+*target*
+*.jar
+*.war
+*.ear
+*.class
+
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
