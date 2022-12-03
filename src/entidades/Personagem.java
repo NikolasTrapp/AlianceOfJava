@@ -109,7 +109,7 @@ public class Personagem extends Criatura{
 
     public void carregarAtaques(){
         this.ataquesBasicos = ListaAtaques.ataquesBasicos.stream().filter(ataque -> ataque.getClasse().equals(getNome()) && getLevel() <= ataque.getNivelMinimo()).collect(Collectors.toCollection(ArrayList::new));
-        this.ataqueEspecial = ListaAtaques.ataqueEspecial.stream().filter(ataque -> ataque.getClasse().equals(getNome()) && getLevel() <= ataque.getNivelMinimo()).collect(Collectors.toCollection(ArrayList::new));
+        this.ataqueEspecial = ListaAtaques.ataquesEspecial.stream().filter(ataque -> ataque.getClasse().equals(getNome()) && getLevel() <= ataque.getNivelMinimo()).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public Ataque escolherAtaque(){
@@ -128,8 +128,14 @@ public class Personagem extends Criatura{
                     flag = false;
                     return ataquesBasicos.get(ataque);
                 } else if (opc == 'e' || opc == 'E'){
-                    flag = false;
-                    return ataqueEspecial.get(ataque);
+                    AtaqueEspecial ataqueEs = ataqueEspecial.get(ataque);
+                    if (ataqueEs.getCustoMP() <= getMp()) {
+                        reduzirMp(ataqueEs.getCustoMP());
+                        flag = false;
+                        return ataqueEs;
+                    } else {
+                        System.out.println("Você não possui pontos de MP suficientes para utilizar este ataque! seus pontos: " + getMp());
+                    }
                 } else {
                     System.out.println("Verifique a opção informada!");
                 }
@@ -160,6 +166,10 @@ public class Personagem extends Criatura{
 
     public void setMp(int mp) {
         this.mp = mp;
+    }
+
+    public void reduzirMp(int mp){
+        setMp(getMp()-mp);
     }
 
     private void setXp(double xp) {

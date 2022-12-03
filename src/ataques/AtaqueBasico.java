@@ -11,7 +11,6 @@ public class AtaqueBasico extends Ataque{
     public int calcularDanoAtaque() {
         int randomCe = getRandom(1, 100); // Chance de erro
         int randomCc = getRandom(1, 100); // Chance de crítico
-        System.out.println(randomCe + " " + randomCc);
         int danoTotal = getDano();
 
         if (randomCc <= getChanceCritico()){

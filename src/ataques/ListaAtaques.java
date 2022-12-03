@@ -31,9 +31,9 @@ public class ListaAtaques {
                     new AtaqueBasico("Joelhada", 13, 10, 10, 0, "Guerreiro", 1, pegarEfeito("Nenhum"))
             )
     );
-    public static ArrayList<AtaqueEspecial> ataqueEspecial = new ArrayList<>(
+    public static ArrayList<AtaqueEspecial> ataquesEspecial = new ArrayList<>(
             Arrays.asList(
-                    new AtaqueEspecial("Jogo sujo", 30, 1, 0, 100, pegarEfeito("Fraqueza"), 2, "Guerreiro", 1)
+                    new AtaqueEspecial("Jogo sujo", 30, 1, 0, 100, pegarEfeito("Fraqueza"), 6, "Guerreiro", 1)
             )
     );
 

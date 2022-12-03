@@ -20,6 +20,9 @@ public class Efeito implements Cloneable{
 
 
     public int getDano() {
+        /*
+
+         */
         if (getNome().equalsIgnoreCase("Sangramento")) return dano * turno;
         return dano;
     }

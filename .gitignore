@@ -1,3 +1,4 @@
-out/
-*.iml
-idea/
+out
+.idea
+projeto-RPG-Devs2Blu.iml
+

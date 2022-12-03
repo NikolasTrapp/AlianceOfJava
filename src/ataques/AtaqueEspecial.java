@@ -35,7 +35,7 @@ public class AtaqueEspecial extends Ataque{
         System.out.println("Chance Critico: " + getChanceCritico());
         System.out.println("Chance Erro: " + getChanceErro());
         System.out.println("Custo mp: " + getCustoMP());
-        System.out.println("Efeito: " + getEfeito());
+        System.out.println("Efeito: " + getEfeito().getNome());
         System.out.println();
     }
 

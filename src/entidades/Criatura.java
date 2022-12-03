@@ -70,7 +70,6 @@ public abstract class Criatura {
     }
 
     protected int verificarEfeitoBuffDebuff(){
-        System.out.println(getEfeito().getNome());
         if (getEfeito().getTurno() > getEfeito().getNumeroMaxTurnos()) limparEfeito();
         else if (getEfeito().getNome().equalsIgnoreCase("Nenhum")) return 0;
         else if (getEfeito().getTipoEfeito() == TipoEfeito.BUFF){
@@ -149,7 +148,6 @@ public abstract class Criatura {
     }
 
     protected void limparEfeito(){
-        System.out.println("Limpou");
         setEfeito(ListaAtaques.pegarEfeito("Nenhum").clone());
     }
 

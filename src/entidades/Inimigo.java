@@ -32,7 +32,6 @@ public class Inimigo extends Criatura{
         System.out.println("Inimigo numero " + n + ":");
         System.out.println("Nome: " + getNome());
         System.out.println("Vida: " + getHp());
-        System.out.println("Dano: " + getDano());
         System.out.println();
 
     }
