@@ -3,8 +3,8 @@ package ataques;
 public class AtaqueBasico extends Ataque{
 
 
-    public AtaqueBasico(String nome, int dano, int chanceCritico, int chanceErro, int chanceEfeito, String classe, int nivelMinimo, Efeito efeito) {
-        super(nome, dano, chanceCritico, chanceErro, chanceEfeito, classe, nivelMinimo, efeito);
+    public AtaqueBasico(String nome, int dano, int chanceCritico, int chanceErro, int chanceEfeito, String[] classes, int nivelMinimo, Efeito efeito) {
+        super(nome, dano, chanceCritico, chanceErro, chanceEfeito, classes, nivelMinimo, efeito);
     }
 
     @Override

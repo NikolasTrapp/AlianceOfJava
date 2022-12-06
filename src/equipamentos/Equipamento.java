@@ -16,6 +16,7 @@ public class Equipamento {
     private String nome;
     private int usos;
     private int forca;
+
     private Scanner sc = new Scanner(System.in);
 
     public Equipamento(Tipo tipo, String nome, int usos, int forca, int chanceMin, int chanceMax) {
@@ -36,8 +37,19 @@ public class Equipamento {
         System.out.println("Você deseja usar seu item " + getNome() +
                 "? Ainda lhe restam " + getUsos() + " usos! (s para SIM, senão digite qualquer coisa)");
         char c = sc.next().charAt(0);
-        if (usos <= 0) System.out.println("O seu equiapento " + nome + " quebrou!!!");
-        return (c == 's' || c == 'S') ? getForca() : 0;
+        if (c == 's' || c == 'S'){
+            this.usos--;
+            if (usos <= 0) System.out.println("O seu equiapento " + nome + " quebrou!!!");
+            return getForca();
+        }
+        return 0;
+    }
+
+    public void imprimirAtributos(){
+        System.out.println("Nome: " + getNome());
+        System.out.println("Tipo: " + getTipo());
+        System.out.println("Força: " + getForca());
+        System.out.println("Usos: " + getUsos());
     }
 
     public boolean validarChance(int n) {
@@ -85,5 +97,10 @@ public class Equipamento {
 
     public void setForca(int forca) {
         this.forca = forca;
+    }
+
+
+    public boolean validarChance(int n) {
+        return n >= getChanceMinimaDeAparecer() && n<= getChanceMaximaDeAparecer();
     }
 }

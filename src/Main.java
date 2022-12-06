@@ -1,4 +1,6 @@
+import ataques.ListaAtaques;
 import entidades.*;
+import equipamentos.Equipamento;
 import equipamentos.Equipamento;
 import ataques.ListaAtaques;
 
@@ -16,11 +18,21 @@ public class Main {
 	
     //Lista de personagens pré cadastrados
     public static ArrayList<Personagem> personagens = new ArrayList<>(Arrays.asList(
-            new Personagem(100, "Bardo", 10, 15),
-            new Personagem(120, "Barbaro", 11, 15),
-            new Personagem(90, "Mago", 14, 15),
-            new Personagem(110, "Guerreiro", 12, 15)
+            new Personagem(120, "Monge", 10, 5),
+            new Personagem(115, "Ladino", 13, 5),
+            new Personagem(130, "Guerreiro", 12, 5),
+            new Personagem(140, "Barbaro", 50, 5),
+            new Personagem(105, "Mago", 8, 6),
+            new Personagem(105, "Clérigo", 7, 5),
+            new Personagem(110, "Bardo", 9, 5)
     ));
+    public static ArrayList<Chefao> chefoes = new ArrayList<>(Arrays.asList(
+            new Chefao(250, "Golem", 15, 20),
+            new Chefao(175, "Rei troll", 17, 30),
+            new Chefao(150, "Dragão", 20, 40)
+    ));
+    public static int estagio = 0;
+
     //Lista de inimigos que será gerada ao decorrer do jogo
     public static ArrayList<Inimigo> inimigos = new ArrayList<>();
     //Personagem selecionado
@@ -45,6 +57,8 @@ public class Main {
         personagem = (Personagem) escolherCriatura(personagens);
         //Garantindo que haverá um personagem, caso haja, iniciar as 3 rodadas
         if (personagem != null) iniciarRaid();
+
+        System.out.println("Acabou, obrigado por jogar!");
     }
 
     public static void gerarInimigos(int levelPersonagem){
@@ -64,7 +78,7 @@ public class Main {
         }
     }
 
-    public static void iniciarRodada(){
+    public static boolean iniciarRodada(){
         /**
          * Esta função controla uma unica onda de inimigos, ela gera os inimigos a
          * partir do nivel de xp do personagem, e logo em seguida ela controla o combate
@@ -102,7 +116,9 @@ public class Main {
                         " de dano, lhe resta " + personagem.getHp() + " pontos de vida"+ANSI_RESET);
             }
             turno ++;
+            if (personagem.getHp() <= 0) return true;
         }
+        return false;
     }
 
     public static Criatura escolherCriatura(ArrayList<? extends Criatura> lista){
@@ -165,13 +181,47 @@ public class Main {
          * de inimigos e ao fim de cada há um BOSS e um baú, além de que o personagem
          * cura sua vida.
          */
-        for (int i = 1; i <= 3; i++){
+        for (int i = 1; i <= 1; i++){
             System.out.println("Rodada: " + i);
-            iniciarRodada();
+            if (iniciarRodada()) {
+                System.out.println("Você morreu!");
+                return;
+            }
         }
+        System.out.println(personagem);
         personagem.setHp(personagem.getHpBase());
-        System.out.println("Um boss apareceu!!!");
+        System.out.println("Sua vida foi restaurada!");
         abrirBau();
+        System.out.println("Um boss apareceu!!!");
+        batalharComBoss();
+    }
+
+    public static void batalharComBoss(){
+        Chefao chefao = chefoes.get(estagio);
+        int turno = 1;
+        while (chefao.getHp() > 0 && personagem.getHp() > 0){
+            System.out.println("Turno: " + turno);
+            System.out.println("Sua vez de atacar!");
+
+            int danoAtaque = personagem.atacar(chefao);
+            chefao.tomarDano(danoAtaque);
+
+            System.out.printf("Você desferiu uma quantidade de %d de dano ao %s!!!%n", danoAtaque, chefao.getNome());
+
+            if (chefao.getHp() <= 0){
+                inimigos.remove(chefao);
+                System.out.println("Chefão morto!");
+                personagem.addXp(chefao.getXpDrop());
+                break;
+            }
+            int dano = personagem.tomarDano(chefao.atacar(personagem));
+
+            System.out.println("O inimigo " + chefao.getNome() +
+                    " desferiu a você uma quantidade de " + dano +
+                    " de dano, lhe resta " + personagem.getHp() + " pontos de vida");
+            turno++;
+        }
+        estagio++;
     }
 
     public static int getRandom(int min, int max){
@@ -189,32 +239,24 @@ public class Main {
     }
 
     public static void abrirBau(){
-        int n = getRandom(1, 100);
         System.out.println("Você encontrou um baú no caminho para próxima raid!!");
-        Equipamento eq = pegarEquipamento(n);
-        System.out.println(eq);
-        System.out.println("Você ganhou o equipamento " + eq.getNome() + " você deseja equipa-lo?");
-        System.out.println("Digite s = Sim ou n = Não");
-        char opc = sc.next().charAt(0);
-        System.out.println(opc);
-        if(opc == 's' || opc == 'S') {
-        	personagem.setEquipamento(eq);
+        Equipamento equipamento = ListaAtaques.pegarEquipamento(getRandom(1, 100));
+        System.out.println("Você ganhou um(a): " + equipamento.getNome() + "\n Veja seus atributos:");
+        equipamento.imprimirAtributos();
+
+        if (personagem.getEquipamento() == null){
+            personagem.setEquipamento(equipamento);
+            System.out.println("Você equipou um(a): " + equipamento.getNome());
         } else {
-        	System.out.println("Você não equipou com " + eq.getNome());
+            System.out.println("Você deseja substituir o seu " + personagem.getEquipamento().getNome() +
+                    " por um " + equipamento.getNome() + "? s - Sim, n - Não");
+            char resposta = sc.next().charAt(0);
+            if (resposta == 's' || resposta == 'S') {
+                personagem.setEquipamento(equipamento);
+                System.out.println("Você equipou um(a): " + equipamento.getNome());
+            }
+            else System.out.println("Ok, fica pra próxima");
         }
-        System.out.println(personagem.getEquipamento());
-    }
-    
-    public static Equipamento pegarEquipamento(int n) {
-    	
-    	for (int i = 0; i < ListaAtaques.equipamentos.size(); i++) {
-			Equipamento eq = ListaAtaques.equipamentos.get(i);
-			
-    		if(eq.validarChance(n)) {
-				return eq;
-			}
-		}
-    	return null;
     }
 
 }

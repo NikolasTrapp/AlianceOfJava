@@ -7,18 +7,18 @@ public abstract class Ataque {
     private int chanceCritico;
     private int chanceErro;
     private int chanceEfeito;
-    private String classe;
+    private String[] classes;
     private int nivelMinimo;
     private Efeito efeito;
 
 
-    public Ataque(String nome, int dano, int chanceCritico, int chanceErro, int chanceEfeito, String classe, int nivelMinimo, Efeito efeito) {
+    public Ataque(String nome, int dano, int chanceCritico, int chanceErro, int chanceEfeito, String[] classes, int nivelMinimo, Efeito efeito) {
         this.nome = nome;
         this.dano = dano;
         this.chanceCritico = chanceCritico;
         this.chanceErro = chanceErro;
         this.chanceEfeito = chanceEfeito;
-        this.classe = classe;
+        this.classes = classes;
         this.nivelMinimo = nivelMinimo;
         this.efeito = efeito;
     }
@@ -31,7 +31,23 @@ public abstract class Ataque {
         return (int)Math.floor(Math.random()*(max-min+1)+min);
     }
 
+    public boolean temNaLista(String nome){
+        for (String str : classes){
+            if (str.equalsIgnoreCase(nome)) return true;
+        }
+        return false;
+    }
 
+    @Override
+    public String toString() {
+        return "Ataque\n" +
+                "nome='" + nome + '\'' +
+                ", dano=" + dano +
+                ", chanceCritico=" + chanceCritico +
+                ", chanceErro=" + chanceErro +
+                ", chanceEfeito=" + chanceEfeito +
+                ", efeito=" + getEfeito().getNome();
+    }
 
     //GETTERS E SETTERS
 
@@ -67,12 +83,12 @@ public abstract class Ataque {
         this.chanceErro = chanceErro;
     }
 
-    public String getClasse() {
-        return classe;
+    public String[] getClasse() {
+        return classes;
     }
 
-    public void setClasse(String classe) {
-        this.classe = classe;
+    public void setClasse(String[] classe) {
+        this.classes = classe;
     }
 
     public int getNivelMinimo() {
