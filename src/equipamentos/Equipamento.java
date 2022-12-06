@@ -1,10 +1,6 @@
 package equipamentos;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
-
-import ataques.Efeito;
 
 public class Equipamento {
 
@@ -97,10 +93,5 @@ public class Equipamento {
 
     public void setForca(int forca) {
         this.forca = forca;
-    }
-
-
-    public boolean validarChance(int n) {
-        return n >= getChanceMinimaDeAparecer() && n<= getChanceMaximaDeAparecer();
     }
 }

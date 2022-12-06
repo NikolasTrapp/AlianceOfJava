@@ -1,9 +1,5 @@
 package entidades;
 
-import ataques.Efeito;
-import ataques.ListaAtaques;
-import ataques.TipoEfeito;
-
 public class Inimigo extends Criatura{
 
     private double xpDrop;

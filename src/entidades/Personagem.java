@@ -1,13 +1,17 @@
 package entidades;
 
-import ataques.*;
-import equipamentos.Equipamento;
-import equipamentos.Tipo;
-
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+
+import ataques.Ataque;
+import ataques.AtaqueBasico;
+import ataques.AtaqueEspecial;
+import ataques.ListaAtaques;
+import ataques.TipoEfeito;
+import equipamentos.Equipamento;
+import equipamentos.Tipo;
 
 public class Personagem extends Criatura{
 
@@ -82,8 +86,15 @@ public class Personagem extends Criatura{
         if (getXp() + xp >= getXpBar()){
             setXp((getXp() + xp) % getXpBar());
             this.level++;
-            System.out.println("☆☆☆☆☆ Parabéns, Você subiu de nivel!!! ☆☆☆☆☆");
+            setHp(getHpBase());
+            System.out.println("☆☆☆☆☆ Parabéns, Você subiu de nivel e recuperou sua Vida!!! ☆☆☆☆☆");
             setXpBar(getXpBar()+10);
+            for (AtaqueEspecial ataque : ataqueEspecial) {
+				ataque.uparSkill();
+			}
+            for (AtaqueBasico ataque : ataquesBasicos) {
+				ataque.uparSkill();
+			}
 //            carregarAtaques();
         } else {
             this.xp += xp;
@@ -264,6 +275,5 @@ public class Personagem extends Criatura{
     public void setEquipamento(Equipamento equipamento) {
         this.equipamento = equipamento;
     }
-
 
 }

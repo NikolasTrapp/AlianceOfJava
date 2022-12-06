@@ -1,3 +1,4 @@
+
 package ataques;
 
 public enum TipoEfeito {

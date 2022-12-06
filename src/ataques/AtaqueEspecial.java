@@ -9,6 +9,7 @@ public class AtaqueEspecial extends Ataque{
         super(nome, dano, chanceCritico, chanceErro, chanceEfeito, classes, nivelMinimo, efeito);
         this.custoMP = custoMP;
     }
+    
     @Override
     public int calcularDanoAtaque() {
         /**

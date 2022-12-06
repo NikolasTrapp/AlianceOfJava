@@ -1,10 +1,10 @@
 package entidades;
 
-import ataques.Ataque;
-import ataques.ListaAtaques;
-
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
+import ataques.Ataque;
+import ataques.ListaAtaques;
 
 public class Chefao extends Criatura{
 

@@ -23,7 +23,10 @@ public abstract class Ataque {
         this.efeito = efeito;
     }
 
-
+    public void uparSkill(){
+    	this.dano += 5;
+    }
+    
     public abstract int calcularDanoAtaque();
     public abstract void mostrarAtributos();
 

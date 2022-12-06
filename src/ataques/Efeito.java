@@ -23,7 +23,6 @@ public class Efeito implements Cloneable{
         /**
             Pegar o dano que o efeito dá verificando se ele é um efeito multiplicador
             ou acumulativo.
-
             @return O dano do efeito
          */
         if (getNome().equalsIgnoreCase("Sangramento")) return dano * turno;

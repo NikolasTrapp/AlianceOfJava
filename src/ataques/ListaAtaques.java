@@ -1,8 +1,5 @@
 package ataques;
 
-import equipamentos.Equipamento;
-import equipamentos.Tipo;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -100,19 +97,5 @@ public class ListaAtaques {
          */
         return efeitos.stream().filter(efeito -> efeito.getNome().equalsIgnoreCase(nome)).collect(Collectors.toCollection(ArrayList::new)).get(0);
     }
-    
-    public static ArrayList<Equipamento> equipamentos = new ArrayList<>(
-            Arrays.asList( 
-            		new Equipamento (Tipo.ATAQUE,"Espada Vingadora", 3, 17,1, 10),
-            		new Equipamento (Tipo.CURA,"Elixir Vida", 1, 30, 11, 21),
-            		new Equipamento (Tipo.DEFESA,"Escudo Templario", 2, 25, 22, 32),
-            		new Equipamento (Tipo.ATAQUE,"Foice da Morte", 2, 19, 33, 43),
-            		new Equipamento (Tipo.ATAQUE,"Machado viking", 3, 18, 44, 54),
-            		new Equipamento (Tipo.DEFESA,"Armadura Templaria", 2, 25, 55, 100)
-            		)
-            );
 
-    public static Equipamento pegarEquipamento(int n){
-        return equipamentos.stream().filter(equipamento -> equipamento.validarChance(n)).collect(Collectors.toCollection(ArrayList::new)).get(0);
-    }
 }
