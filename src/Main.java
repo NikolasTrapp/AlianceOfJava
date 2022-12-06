@@ -28,7 +28,7 @@ public class Main {
             new Personagem(120, "Monge", 10, 5),
             new Personagem(115, "Ladino", 13, 5),
             new Personagem(130, "Guerreiro", 12, 5),
-            new Personagem(140, "Barbaro", 50, 5),
+            new Personagem(140, "Barbaro", 15, 5),
             new Personagem(105, "Mago", 8, 6),
             new Personagem(105, "Clérigo", 7, 5),
             new Personagem(110, "Bardo", 9, 5)
@@ -357,7 +357,7 @@ public class Main {
 			break;
 		}
     	
-    	int contador = 0;
+    	int contador = 1;
     	while (personagem.getHp() > 0) {
     		if(contador % 5 == 0){
     			batalharComBoss(getRandom(1, 3));
