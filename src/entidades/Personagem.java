@@ -22,6 +22,8 @@ public class Personagem extends Criatura{
 
     private Scanner sc = new Scanner(System.in);
 
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLUE = "\u001B[34m";
 
     public Personagem(double hpBase, String nome, int danoBase, int mp) {
         super(hpBase, nome, danoBase);
@@ -58,12 +60,12 @@ public class Personagem extends Criatura{
         /**
          * Esta função mostra os atributos do personagem
          */
-        System.out.println("----------ATRIBUTOS----------");
+        System.out.println(ANSI_BLUE+"----------ATRIBUTOS----------");
         System.out.println("Nome: " + getNome());
         System.out.println("HP: " + getHpBase());
         System.out.println("Dano: " + getDanoBase());
         System.out.println("MP: " + getMp());
-        System.out.println("-----------ATAQUES-----------");
+        System.out.println("-----------ATAQUES-----------"+ANSI_RESET);
         mostrarAtaques();
     }
 

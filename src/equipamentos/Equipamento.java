@@ -1,20 +1,30 @@
 package equipamentos;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
+
+import ataques.Efeito;
 
 public class Equipamento {
 
+	
+            		
+    private int chanceMin;
+    private int chanceMax;
     private Tipo tipo;
     private String nome;
     private int usos;
     private int forca;
     private Scanner sc = new Scanner(System.in);
 
-    public Equipamento(Tipo tipo, String nome, int usos, int forca) {
+    public Equipamento(Tipo tipo, String nome, int usos, int forca, int chanceMin, int chanceMax) {
         this.tipo = tipo;
         this.nome = nome;
         this.usos = usos;
         this.forca = forca;
+        this.chanceMin = chanceMin;
+        this.chanceMax = chanceMax;
     }
 
     public int usar() {
@@ -30,10 +40,22 @@ public class Equipamento {
         return (c == 's' || c == 'S') ? getForca() : 0;
     }
 
+    public boolean validarChance(int n) {
+    	
+    	return n >= chanceMin && n <= chanceMax;
+    }
+    
+    @Override
+	public String toString() {
+		return "Equipamento [chanceMin=" + chanceMin + ", chanceMax=" + chanceMax + ", tipo=" + tipo + ", nome=" + nome
+				+ ", usos=" + usos + ", forca=" + forca + ", sc=" + sc + "]";
+	}
 
     //GETTERS E SETTERS
 
-    public Tipo getTipo() {
+    
+
+	public Tipo getTipo() {
         return tipo;
     }
 
