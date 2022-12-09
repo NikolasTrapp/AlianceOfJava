@@ -25,13 +25,13 @@ public class Main {
 	
     //Lista de personagens pré cadastrados
     public static ArrayList<Personagem> personagens = new ArrayList<>(Arrays.asList(
-            new Personagem(120, "Monge", 10, 5),
-            new Personagem(115, "Ladino", 13, 5),
-            new Personagem(130, "Guerreiro", 12, 5),
-            new Personagem(140, "Barbaro", 15, 5),
-            new Personagem(105, "Mago", 8, 6),
-            new Personagem(105, "Clérigo", 7, 5),
-            new Personagem(110, "Bardo", 9, 5)
+            new Personagem(220, "Monge", 10, 5),
+            new Personagem(215, "Ladino", 13, 5),
+            new Personagem(230, "Guerreiro", 12, 5),
+            new Personagem(240, "Barbaro", 15, 5),
+            new Personagem(205, "Mago", 8, 6),
+            new Personagem(205, "Clérigo", 7, 5),
+            new Personagem(210, "Bardo", 9, 5)
     ));
     public static ArrayList<Chefao> chefoes = new ArrayList<>(Arrays.asList(
             new Chefao(250 * multiplicador, "Golem",(int) Math.floor( 15*multiplicador) , 20 * multiplicador),

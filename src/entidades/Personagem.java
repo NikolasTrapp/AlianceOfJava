@@ -28,7 +28,9 @@ public class Personagem extends Criatura{
 
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLUE = "\u001B[34m";
-
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    
     public Personagem(double hpBase, String nome, int danoBase, int mp) {
         super(hpBase, nome, danoBase);
         this.mp = mp;
@@ -41,10 +43,10 @@ public class Personagem extends Criatura{
          * Esta função mostra os ataques que o personagem possui.
          */
         System.out.println();
-        System.out.println("Ataques Básicos:");
+        System.out.println(ANSI_PURPLE+"Ataques Básicos:"+ANSI_RESET);
         imprimirAtaques(ataquesBasicos);
         System.out.println();
-        System.out.println("Ataques Especiais:");
+        System.out.println(ANSI_YELLOW+"Ataques Especiais:"+ANSI_RESET);
         imprimirAtaques(ataqueEspecial);
     }
 
@@ -64,12 +66,12 @@ public class Personagem extends Criatura{
         /**
          * Esta função mostra os atributos do personagem
          */
-        System.out.println(ANSI_BLUE+"----------ATRIBUTOS----------");
-        System.out.println("Nome: " + getNome());
+        System.out.println("----------ATRIBUTOS----------");
+        System.out.println(ANSI_BLUE+"Nome: " + getNome());
         System.out.println("HP: " + getHpBase());
         System.out.println("Dano: " + getDanoBase());
-        System.out.println("MP: " + getMp());
-        System.out.println("-----------ATAQUES-----------"+ANSI_RESET);
+        System.out.println("MP: " + getMp()+ANSI_RESET);
+        System.out.println("-----------ATAQUES-----------");
         mostrarAtaques();
     }
 

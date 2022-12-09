@@ -11,6 +11,9 @@ public abstract class Ataque {
     private int nivelMinimo;
     private Efeito efeito;
 
+    public static final String ANSI_RESET = "\u001B[0m";
+	public static final String ANSI_RED = "\u001B[31m";
+	public static final String ANSI_GREEN = "\u001B[32m";
 
     public Ataque(String nome, int dano, int chanceCritico, int chanceErro, int chanceEfeito, String[] classes, int nivelMinimo, Efeito efeito) {
         this.nome = nome;
@@ -43,13 +46,13 @@ public abstract class Ataque {
 
     @Override
     public String toString() {
-        return "Ataque\n" +
+        return ANSI_GREEN+"Ataque\n" +
                 "nome='" + nome + '\'' +
                 ", dano=" + dano +
                 ", chanceCritico=" + chanceCritico +
                 ", chanceErro=" + chanceErro +
                 ", chanceEfeito=" + chanceEfeito +
-                ", efeito=" + getEfeito().getNome();
+                ", efeito=" + getEfeito().getNome()+ANSI_RESET;
     }
 
     //GETTERS E SETTERS
