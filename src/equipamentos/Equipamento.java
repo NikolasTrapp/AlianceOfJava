@@ -4,24 +4,20 @@ import java.util.Scanner;
 
 public class Equipamento {
 
-	
-            		
-    private int chanceMin;
-    private int chanceMax;
     private Tipo tipo;
     private String nome;
     private int usos;
     private int forca;
+    private Raridade raridade;
 
     private Scanner sc = new Scanner(System.in);
 
-    public Equipamento(Tipo tipo, String nome, int usos, int forca, int chanceMin, int chanceMax) {
+    public Equipamento(Tipo tipo, String nome, int usos, int forca, Raridade raridade) {
         this.tipo = tipo;
         this.nome = nome;
         this.usos = usos;
         this.forca = forca;
-        this.chanceMin = chanceMin;
-        this.chanceMax = chanceMax;
+        this.raridade = raridade;
     }
 
     public int usar() {
@@ -47,21 +43,17 @@ public class Equipamento {
         System.out.println("Força: " + getForca());
         System.out.println("Usos: " + getUsos());
     }
-
-    public boolean validarChance(int n) {
-    	
-    	return n >= chanceMin && n <= chanceMax;
+    
+    public void fundir() {
+    	this.forca *= 2;
     }
     
-    @Override
-	public String toString() {
-		return "Equipamento [chanceMin=" + chanceMin + ", chanceMax=" + chanceMax + ", tipo=" + tipo + ", nome=" + nome
-				+ ", usos=" + usos + ", forca=" + forca + ", sc=" + sc + "]";
-	}
-
-    //GETTERS E SETTERS
-
     
+	@Override
+	public String toString() {
+		return String.format("Equipamento [tipo=%s, nome=%s, usos=%s, forca=%s, raridade=%s, sc=%s]", tipo, nome, usos,
+				forca, raridade, sc);
+	}
 
 	public Tipo getTipo() {
         return tipo;
@@ -94,4 +86,14 @@ public class Equipamento {
     public void setForca(int forca) {
         this.forca = forca;
     }
+
+	public Raridade getRaridade() {
+		return raridade;
+	}
+
+	public void setRaridade(Raridade raridade) {
+		this.raridade = raridade;
+	}
+    
+    
 }

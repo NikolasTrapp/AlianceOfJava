@@ -37,7 +37,14 @@ public abstract class Ataque {
         return (int)Math.floor(Math.random()*(max-min+1)+min);
     }
 
-    public boolean temNaLista(String nome){
+    public boolean verificarPertencePersonagem(String nome, int levelPersonagem){
+        for (String str : classes){
+            if (str.equalsIgnoreCase(nome) && levelPersonagem == getNivelMinimo()) return true;
+        }
+        return false;
+    }
+    
+    public boolean verificarPertenceChefao(String nome){
         for (String str : classes){
             if (str.equalsIgnoreCase(nome)) return true;
         }

@@ -3,9 +3,9 @@ package ataques;
 
 public enum TipoEfeito {
 
-    STATUS,
-    ATAQUE,
-    BUFF,
-    DEBUFF
+    STATUS, //CONGELADO, PARALIZADO...
+    ATAQUE, //SANGRAMENTO, VENENO, CHAMAS...
+    BUFF, //REGENERAÇÃO, FORÇA...
+    DEBUFF //FRAQUEZA, LENTIDÃO...
 
 }

@@ -19,6 +19,7 @@ public class Personagem extends Criatura{
     private double xp = 0;
     private int xpBar = 10;
     private int level = 1;
+    private int mpBase;
 
     private Equipamento equipamento;
     private ArrayList<AtaqueBasico> ataquesBasicos = new ArrayList<>();
@@ -34,6 +35,7 @@ public class Personagem extends Criatura{
     public Personagem(double hpBase, String nome, int danoBase, int mp) {
         super(hpBase, nome, danoBase);
         this.mp = mp;
+        this.mpBase = mp;
         carregarAtaques();
     }
 
@@ -97,7 +99,8 @@ public class Personagem extends Criatura{
             for (AtaqueBasico ataque : ataquesBasicos) {
 				ataque.uparSkill();
 			}
-//            carregarAtaques();
+            trocarAtaque();
+            setMp(getMpBase());
         } else {
             this.xp += xp;
         }
@@ -176,8 +179,8 @@ public class Personagem extends Criatura{
         /**
          * Esta função carrega os ataques que são pertencentes a este personagem.
          */
-        this.ataquesBasicos = ListaAtaques.ataquesBasicos.stream().filter(ataque -> ataque.temNaLista(getNome()) && getLevel() <= ataque.getNivelMinimo()).collect(Collectors.toCollection(ArrayList::new));
-        this.ataqueEspecial = ListaAtaques.ataquesEspecial.stream().filter(ataque -> ataque.temNaLista(getNome()) && getLevel() <= ataque.getNivelMinimo()).collect(Collectors.toCollection(ArrayList::new));
+        this.ataquesBasicos = ListaAtaques.ataquesBasicos.stream().filter(ataque -> ataque.verificarPertencePersonagem(getNome(), getLevel()) && getLevel() <= ataque.getNivelMinimo()).collect(Collectors.toCollection(ArrayList::new));
+        this.ataqueEspecial = ListaAtaques.ataquesEspecial.stream().filter(ataque -> ataque.verificarPertencePersonagem(getNome(), getLevel()) && getLevel() <= ataque.getNivelMinimo()).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public Ataque escolherAtaque(){
@@ -220,6 +223,56 @@ public class Personagem extends Criatura{
             }
         }
         return null;
+    }
+    
+    private void trocarAtaque() {
+    	// Vai ser chamada quando o personagem upar de nivel
+    	AtaqueBasico novoAtaqueBasico = (AtaqueBasico) checharNivelAtaque(ListaAtaques.ataquesBasicos);
+    	AtaqueEspecial novoAtaqueEspecial = (AtaqueEspecial) checharNivelAtaque(ListaAtaques.ataquesEspecial);
+    	
+    	if (novoAtaqueBasico != null) {
+    		if (getNumeroAtaques() < 4) {
+    			ataquesBasicos.add(novoAtaqueBasico);
+    		} else {
+    			System.out.println("Você ganhou o ataque " + novoAtaqueBasico.getNome());
+    			System.out.println("Você deseja troca-lo? (s ou n)");
+    			char opcao = sc.next().charAt(0);
+    			if (opcao == 's' || opcao == 'S') {
+    				imprimirAtaques(ataquesBasicos);
+    				System.out.println("Qual ataque você deseja abandonar?");
+    				int numero = sc.nextInt();
+    				ataquesBasicos.remove(numero-1);
+    				ataquesBasicos.add(novoAtaqueBasico);
+    			}    			
+    		}
+    		
+    	}
+    	
+    	if (novoAtaqueEspecial != null) {
+    		if (getNumeroAtaques() < 4) {
+    			ataqueEspecial.add(novoAtaqueEspecial);
+    		} else {
+    			System.out.println("Você ganhou o ataque " + novoAtaqueEspecial.getNome());
+    			System.out.println("Você deseja troca-lo? (s ou n)");
+    			char opcao = sc.next().charAt(0);
+    			if (opcao == 's' || opcao == 'S') {
+    				imprimirAtaques(ataquesBasicos);
+    				System.out.println("Qual ataque você deseja abandonar?");
+    				int numero = sc.nextInt();
+    				ataqueEspecial.remove(numero-1);
+    				ataqueEspecial.add(novoAtaqueEspecial);
+    			}    			
+    		}
+    		
+    	}
+    
+    }
+    
+    private Ataque checharNivelAtaque(ArrayList<? extends Ataque> ataques) {
+    	for (Ataque ataque : ataques) {
+    		if (ataque.verificarPertencePersonagem(getNome(), getLevel())) return ataque;
+    	}
+    	return null;
     }
 
 
@@ -277,5 +330,17 @@ public class Personagem extends Criatura{
     public void setEquipamento(Equipamento equipamento) {
         this.equipamento = equipamento;
     }
+    
+    private int getNumeroAtaques() {
+    	return ataquesBasicos.size() + ataqueEspecial.size();
+    }
+
+	public int getMpBase() {
+		return mpBase;
+	}
+
+	public void setMpBase(int mpBase) {
+		this.mpBase = mpBase;
+	}
 
 }

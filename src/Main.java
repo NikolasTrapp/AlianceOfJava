@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -10,6 +11,7 @@ import entidades.Criatura;
 import entidades.Inimigo;
 import entidades.Personagem;
 import equipamentos.Equipamento;
+import equipamentos.Raridade;
 
 public class Main {
 
@@ -25,13 +27,13 @@ public class Main {
 	
     //Lista de personagens pré cadastrados
     public static ArrayList<Personagem> personagens = new ArrayList<>(Arrays.asList(
-            new Personagem(220, "Monge", 10, 5),
-            new Personagem(215, "Ladino", 13, 5),
-            new Personagem(230, "Guerreiro", 12, 5),
-            new Personagem(240, "Barbaro", 15, 5),
-            new Personagem(205, "Mago", 8, 6),
-            new Personagem(205, "Clérigo", 7, 5),
-            new Personagem(210, "Bardo", 9, 5)
+            new Personagem(220, "Monge", 10, 12),
+            new Personagem(215, "Ladino", 13, 12),
+            new Personagem(230, "Guerreiro", 12, 12),
+            new Personagem(240, "Barbaro", 15, 12),
+            new Personagem(205, "Mago", 8, 12),
+            new Personagem(205, "Clérigo", 7, 12),
+            new Personagem(210, "Bardo", 9, 12)
     ));
     public static ArrayList<Chefao> chefoes = new ArrayList<>(Arrays.asList(
             new Chefao(250 * multiplicador, "Golem",(int) Math.floor( 15*multiplicador) , 20 * multiplicador),
@@ -46,9 +48,10 @@ public class Main {
     public static Personagem personagem;
     public static int DIFICULDADE = 1;
     public static Scanner sc = new Scanner(System.in);
+    
 
     public static void main(String[] args) {
-    	
+    	System.out.println(Historia.historia);    	
     	System.out.println("Escolha a dificuldade desejada:\n1 = Facil\n2 = Média\n3 = Dificil");
     	escolherDificuldade();
     	
@@ -60,7 +63,6 @@ public class Main {
         int opc = 0;
         do{
         	 opc = sc.nextInt();
-        	
             if (opc == 2) {
     			iniciarModoLivre();
     		}else if(opc == 1){
@@ -87,7 +89,7 @@ public class Main {
          */
     	for (int i = 0; i < 4; i++){
     		int n = getRandom(1, 5);
-    		if (n == 1) inimigos.add(new Inimigo("Lobo", 50 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem-1)* multiplicador),levelPersonagem*multiplicador));
+    		if (n == 1) inimigos.add(new Inimigo("Lobo", 50 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem-1)* multiplicador),10));
     		else if (n == 2) inimigos.add(new Inimigo("Goblin", 55 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem-1)* multiplicador),levelPersonagem*multiplicador));
     		else if (n == 3) inimigos.add(new Inimigo("Troll", 60 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem-1)* multiplicador),levelPersonagem*multiplicador));
     		else if (n == 4) inimigos.add(new Inimigo("Zumbi", 65 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem-1)* multiplicador),levelPersonagem*multiplicador));
@@ -233,6 +235,11 @@ public class Main {
                 break;
             }
             int dano = personagem.tomarDano(chefao.atacar(personagem));
+            
+            if (chefao.roubarEquipamento(getRandom(1, 100))) {
+            	personagem.setEquipamento(null);
+            	System.out.println("O chefão roubou seu equipamento!!!");
+            }
 
             System.out.println("O inimigo " + chefao.getNome() +
                     " desferiu a você uma quantidade de " + dano +
@@ -258,7 +265,7 @@ public class Main {
 
     public static void abrirBau(){
         System.out.println("Você encontrou um baú no caminho para próxima raid!!");
-        Equipamento equipamento = pegarEquipamento(getRandom(1, 100));
+        Equipamento equipamento = pegarEquipamento();
         System.out.println("Você ganhou um(a): " + equipamento.getNome() + "\n Veja seus atributos:");
         equipamento.imprimirAtributos();
 
@@ -266,25 +273,42 @@ public class Main {
             personagem.setEquipamento(equipamento);
             System.out.println("Você equipou um(a): " + equipamento.getNome());
         } else {
-            System.out.println("Você deseja substituir o seu " + personagem.getEquipamento().getNome() +
-                    " por um " + equipamento.getNome() + "? s - Sim, n - Não");
-            char resposta = sc.next().charAt(0);
-            if (resposta == 's' || resposta == 'S') {
-                personagem.setEquipamento(equipamento);
-                System.out.println("Você equipou um(a): " + equipamento.getNome());
-            }
-            else System.out.println("Ok, fica pra próxima");
+        	if (equipamento == personagem.getEquipamento()) {
+        		System.out.println("Parece que você encontrou um equipamento repetido, deseja fundi-lo?");
+        		char resposta = sc.next().charAt(0);
+                if (resposta == 's' || resposta == 'S') {
+                    personagem.getEquipamento().fundir();
+                    System.out.println("Você fundiu o equipamento com sucesso!");
+                }
+                else System.out.println("Ok, fica pra próxima");
+        	} else {
+	            System.out.println("Você deseja substituir o seu " + personagem.getEquipamento().getNome() +
+	                    " por um " + equipamento.getNome() + "? s - Sim, n - Não");
+	            char resposta = sc.next().charAt(0);
+	            if (resposta == 's' || resposta == 'S') {
+	                personagem.setEquipamento(equipamento);
+	                System.out.println("Você equipou um(a): " + equipamento.getNome());
+	            }
+	            else System.out.println("Ok, fica pra próxima");
+        	}
         }
     }
 
-    public static Equipamento pegarEquipamento(int n) {
-        for (int i = 0; i < ListaAtaques.equipamentos.size(); i++) {
-            Equipamento eq = ListaAtaques.equipamentos.get(i);
-            if(eq.validarChance(n)) {
-                return eq;
-            }
-        }
-        return null;
+    public static Equipamento pegarEquipamento() {
+        List<Equipamento> equipamentos = ListaAtaques.equipamentos.stream().filter(equip -> equip.getRaridade() == retornarRaridade()).toList();
+        return equipamentos.get(getRandom(0, equipamentos.size()-1));
+        
+    }
+    
+    public static Raridade retornarRaridade() {
+    	int numero = getRandom(1, 100);
+    	System.out.println(numero);
+    	
+    	if (numero <= Raridade.LENDARIO.getChance()) return Raridade.LENDARIO; // 5
+    	else if (numero <= Raridade.EPICO.getChance()) return Raridade.EPICO; // 10
+    	else if (numero <= Raridade.RARO.getChance()) return Raridade.RARO; // 20
+    	else if (numero <= Raridade.INCOMUM.getChance()) return Raridade.INCOMUM; // 30
+    	else return Raridade.COMUM; // 35
     }
     
     public static void escolherDificuldade(){
