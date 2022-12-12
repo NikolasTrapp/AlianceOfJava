@@ -256,7 +256,7 @@ public class Personagem extends Criatura{
     			System.out.println("Você deseja troca-lo? (s ou n)");
     			char opcao = sc.next().charAt(0);
     			if (opcao == 's' || opcao == 'S') {
-    				imprimirAtaques(ataquesBasicos);
+    				imprimirAtaques(ataqueEspecial);
     				System.out.println("Qual ataque você deseja abandonar?");
     				int numero = sc.nextInt();
     				ataqueEspecial.remove(numero-1);

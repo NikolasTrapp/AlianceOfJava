@@ -15,7 +15,8 @@ import equipamentos.Raridade;
 
 public class Main {
 
-	public static double multiplicador = multiplicarDificuldade();
+	public static double multiplicador = 1;
+	
 	
 	public static final String ANSI_RESET = "\u001B[0m";
 	public static final String ANSI_RED = "\u001B[31m";
@@ -27,13 +28,13 @@ public class Main {
 	
     //Lista de personagens pré cadastrados
     public static ArrayList<Personagem> personagens = new ArrayList<>(Arrays.asList(
-            new Personagem(220, "Monge", 10, 12),
-            new Personagem(215, "Ladino", 13, 12),
-            new Personagem(230, "Guerreiro", 12, 12),
-            new Personagem(240, "Barbaro", 15, 12),
-            new Personagem(205, "Mago", 8, 12),
-            new Personagem(205, "Clérigo", 7, 12),
-            new Personagem(210, "Bardo", 9, 12)
+            new Personagem(320, "Monge", 10, 12),
+            new Personagem(315, "Ladino", 13, 12),
+            new Personagem(330, "Guerreiro", 12, 12),
+            new Personagem(340, "Barbaro", 15, 12),
+            new Personagem(305, "Mago", 8, 12),
+            new Personagem(305, "Clérigo", 7, 12),
+            new Personagem(310, "Bardo", 9, 12)
     ));
     public static ArrayList<Chefao> chefoes = new ArrayList<>(Arrays.asList(
             new Chefao(250 * multiplicador, "Golem",(int) Math.floor( 15*multiplicador) , 20 * multiplicador),
@@ -72,7 +73,9 @@ public class Main {
     	        personagem = (Personagem) escolherCriatura(personagens);
     	        
     	        //Garantindo que haverá um personagem, caso haja, iniciar as 3 rodadas
-    	        if (personagem != null) iniciarRaid();
+    	        if (personagem != null) {
+    	        		iniciarRaid();
+    	        } 
     		}else{
     			System.out.println("Opção invalida, informe uma Opção Valida!");
     		}
@@ -87,13 +90,14 @@ public class Main {
          *
          * @param levelPersonagem O level atual do personagem.
          */
+    	System.out.println(multiplicador);
     	for (int i = 0; i < 4; i++){
     		int n = getRandom(1, 5);
-    		if (n == 1) inimigos.add(new Inimigo("Lobo", 50 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem-1)* multiplicador),10));
-    		else if (n == 2) inimigos.add(new Inimigo("Goblin", 55 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem-1)* multiplicador),levelPersonagem*multiplicador));
-    		else if (n == 3) inimigos.add(new Inimigo("Troll", 60 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem-1)* multiplicador),levelPersonagem*multiplicador));
-    		else if (n == 4) inimigos.add(new Inimigo("Zumbi", 65 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem-1)* multiplicador),levelPersonagem*multiplicador));
-    		else if (n == 5) inimigos.add(new Inimigo("Urso", 70 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem-1)* multiplicador),levelPersonagem*multiplicador));
+    		if (n == 1) inimigos.add(new Inimigo("Lobo", 50 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem)* multiplicador),levelPersonagem*multiplicador));
+    		else if (n == 2) inimigos.add(new Inimigo("Goblin", 55 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem)* multiplicador),levelPersonagem*multiplicador));
+    		else if (n == 3) inimigos.add(new Inimigo("Troll", 60 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem)* multiplicador),levelPersonagem*multiplicador));
+    		else if (n == 4) inimigos.add(new Inimigo("Zumbi", 65 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem)* multiplicador),levelPersonagem*multiplicador));
+    		else if (n == 5) inimigos.add(new Inimigo("Urso", 70 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem)* multiplicador),levelPersonagem*multiplicador));
     		else throw new NoSuchElementException("Ocorreu um erro ao criar um inimigo!");
     	}
 
@@ -202,19 +206,24 @@ public class Main {
          * de inimigos e ao fim de cada há um BOSS e um baú, além de que o personagem
          * cura sua vida.
          */
-        for (int i = 1; i <= 1; i++){
-            System.out.println("Rodada: " + i);
-            if (iniciarRodada()) {
-                System.out.println("Você morreu!");
-                return;
-            }
-        }
-        System.out.println(personagem);
-        personagem.setHp(personagem.getHpBase());
-        System.out.println("Sua vida foi restaurada!");
-        abrirBau();
-        System.out.println("Um boss apareceu!!!");
-        batalharComBoss(estagio-1);
+    	for (int j = 0; j < chefoes.size(); j++) {
+	        for (int i = 1; i <= 2; i++){
+	            System.out.println("Rodada: " + i);
+	            if (iniciarRodada()) {
+	                System.out.println("Você morreu!");
+	                return;
+	            }
+	        }
+	        System.out.println(personagem);
+	        personagem.setHp(personagem.getHpBase());
+	        System.out.println("Sua vida foi restaurada!");
+	        abrirBau();
+	        System.out.println("Um boss apareceu!!!");
+	        batalharComBoss(estagio);
+	        
+	        estagio++;
+    	}
+        
     }
 
     public static void batalharComBoss(int n){
@@ -302,7 +311,6 @@ public class Main {
     
     public static Raridade retornarRaridade() {
     	int numero = getRandom(1, 100);
-    	System.out.println(numero);
     	
     	if (numero <= Raridade.LENDARIO.getChance()) return Raridade.LENDARIO; // 5
     	else if (numero <= Raridade.EPICO.getChance()) return Raridade.EPICO; // 10
@@ -323,19 +331,20 @@ public class Main {
     		System.out.println("A dificuldade informada esta incorreta!\nInforme um número de 1 a 3!!");
     	}
     	}while(true);
+    	multiplicarDificuldade();
     }
     
     public static double multiplicarDificuldade(){
     	
-    	double multiplicador = 1;
+    	
     	switch (DIFICULDADE) {
 		case 1:
-			 multiplicador = 1;
+			 multiplicador = 0.7;
 			 
 			break;
 
 		case 2:
-			 multiplicador = 1.5;
+			 multiplicador = 1.2;
 			break;
 			
 		case 3:
