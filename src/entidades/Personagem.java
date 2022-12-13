@@ -342,5 +342,13 @@ public class Personagem extends Criatura{
 	public void setMpBase(int mpBase) {
 		this.mpBase = mpBase;
 	}
+	
+	public ArrayList<Ataque> getAtaques(){
+		
+		ArrayList<Ataque> ataques = new ArrayList<>();
+		ataques.addAll(ataquesBasicos);
+		ataques.addAll(ataqueEspecial);
+		return ataques;
+	}
 
 }

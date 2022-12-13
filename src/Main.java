@@ -304,7 +304,12 @@ public class Main {
     }
 
     public static Equipamento pegarEquipamento() {
-        List<Equipamento> equipamentos = ListaAtaques.equipamentos.stream().filter(equip -> equip.getRaridade() == retornarRaridade()).toList();
+    	ArrayList<Equipamento> equipamentos = new ArrayList<>();
+    	for (Equipamento equip : ListaAtaques.equipamentos){
+    	  if (equip.getRaridade() == retornarRaridade()){
+    	    equipamentos.add(equip);
+    	  }
+    	}
         return equipamentos.get(getRandom(0, equipamentos.size()-1));
         
     }
