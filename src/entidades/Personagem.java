@@ -143,14 +143,14 @@ public class Personagem extends Criatura{
          *
          * @return O dano total do ataque desferido.
          */
-        Ataque ataque = escolherAtaque();
+       /* Ataque ataque = escolherAtaque();
         if (ataque == null) return 0;
         int dano = getDanoBase();
         dano += ataque.calcularDanoAtaque();
         dano += verificarEfeitoBuffDebuff();
         dano += verificarEquipamento(Tipo.ATAQUE);
-        inimigo.passarEfeito(ataque);
-        return dano;
+        inimigo.passarEfeito(ataque); */
+        return 10;
     }
 
     private int verificarEquipamento(Tipo tipo){

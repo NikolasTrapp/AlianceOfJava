@@ -24,16 +24,6 @@ public class Inimigo extends Criatura{
         return dano;
     }
 
-    public void imprimirInimigo(int n){
-        System.out.println("Inimigo numero " + n + ":");
-        System.out.println("Nome: " + getNome());
-        System.out.println("Vida: " + getHp());
-        System.out.println();
-
-    }
-
-
-
 
     //GETTERS E SETTERS
     public double getXpDrop() {
