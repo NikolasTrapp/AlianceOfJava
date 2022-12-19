@@ -83,6 +83,7 @@ public abstract class Criatura {
          */
         if (getEfeito().getTipoEfeito() == TipoEfeito.STATUS && getEfeito().getTurno() <= getEfeito().getNumeroMaxTurnos()){
             getEfeito().addTurno();
+            System.out.println("O inimigo " + getNome() + " perdeu o ataque pois estava com o efeito de " + getEfeito().getNome());
             return true;
         }
         return false;

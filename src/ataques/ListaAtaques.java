@@ -38,7 +38,7 @@ public class ListaAtaques {
                     new AtaqueBasico("Facada", 16, 5, 12, 0, new String[] {"Ladino"}, 1, pegarEfeito("Nenhum")),
                     new AtaqueBasico("Machadada", 21, 5, 12, 0, new String[] {"Barbaro"}, 1, pegarEfeito("Nenhum")),
                     new AtaqueBasico("Cabeçada", 11, 5, 12, 0, new String[] {"Barbaro", "Guerreiro", "Bardo"}, 2, pegarEfeito("Nenhum")),
-                    new AtaqueBasico("Camaçada de pau", 19, 5, 12, 0, new String[] {"Mago", "Monje"}, 1, pegarEfeito("Nenhum")),
+                    new AtaqueBasico("Camaçada de pau", 19, 5, 12, 0, new String[] {"Mago", "Monje"}, 2, pegarEfeito("Nenhum")),
                     new AtaqueBasico("Investida", 13, 5, 12, 0, new String[] {"Mago", "Bardo"}, 1, pegarEfeito("Nenhum"))
             )
     );
@@ -49,7 +49,7 @@ public class ListaAtaques {
                     new AtaqueEspecial("Adormecer", 35, 1, 0, 100, pegarEfeito("Atordoamento"), 6, new String[] {"Monge", "Guerreiro", "Barbaro"}, 4),
                     new AtaqueEspecial("Jogo sujo", 55, 1, 0, 100, pegarEfeito("Nenhum"), 6, new String[] {"Ladino"}, 1),
                     new AtaqueEspecial("Ataque giratório", 57, 1, 0, 100, pegarEfeito("Nenhum"), 6, new String[] {"Barbaro"}, 5),
-                    new AtaqueEspecial("Bola de fogo", 63, 1, 0, 100, pegarEfeito("Chamas"), 6, new String[] {"Mago"}, 1),
+                    new AtaqueEspecial("Bola de fogo", 40, 1, 0, 100, pegarEfeito("Chamas"), 6, new String[] {"Mago"}, 1),
                     new AtaqueEspecial("Espinhos de gelo", 59, 1, 0, 100, pegarEfeito("Congelamento"), 6, new String[] {"Mago"}, 1),
                     new AtaqueEspecial("Purificação", 37, 1, 0, 100, pegarEfeito("Regeneração"), 6, new String[] {"Clérigo"}, 1),
                     new AtaqueEspecial("Envenenar", 45, 1, 0, 100, pegarEfeito("Envenenamento"), 6, new String[] {"Clérigo"}, 1),
@@ -62,13 +62,14 @@ public class ListaAtaques {
             new AtaqueBasico("Golpe de pedra", 5, 0, 0, 0, new String[]{"Golem"}, 0, pegarEfeito("Nenhum")),
             new AtaqueBasico("Empurrão", 3, 10, 0, 0, new String[]{"Golem", "Rei troll"}, 0, pegarEfeito("Nenhum")),
             new AtaqueEspecial("Deslizamento de pedra", 15, 0, 0, 0,  pegarEfeito("Nenhum"), 0, new String[]{"Golem"}, 0),
-            new AtaqueEspecial("Grito", 0, 0, 10, 0,  pegarEfeito("Atordoamento"), 0, new String[]{"Golem", "Dragão"}, 0),
+            new AtaqueEspecial("Grito", 0, 0, 10, 0,  pegarEfeito("Atordoamento"), 0, new String[]{"Golem"}, 0),
             new AtaqueBasico("Espadada", 5, 0, 10, 0, new String[]{"Rei troll"}, 0, pegarEfeito("Sangramento")),
             new AtaqueEspecial("Envenenar", 3, 0, 15, 0,  pegarEfeito("Envenenamento"), 0, new String[]{"Rei troll"}, 0),
             new AtaqueBasico("Evadir", 3, 0, 15, 0, new String[]{"Rei troll"}, 0, pegarEfeito("Invencivel")),
             new AtaqueBasico("Mordida", 8, 0, 0, 0, new String[]{"Dragão"}, 0, pegarEfeito("Nenhum")),
             new AtaqueBasico("Arranhão", 8, 0, 15, 0, new String[]{"Dragão"}, 0, pegarEfeito("Sangramento")),
-            new AtaqueEspecial("Bola de fogo", 8, 0, 15, 0,  pegarEfeito("Chamas"), 0, new String[]{"Dragão"}, 0)
+            new AtaqueEspecial("Bola de fogo", 8, 0, 15, 0,  pegarEfeito("Chamas"), 0, new String[]{"Dragão"}, 0),
+            new AtaqueEspecial("Espinhos de gelo", 10, 1, 0, 100, pegarEfeito("Congelamento"), 6, new String[] {"Dragão"}, 1)
     ));
 
     public static ArrayList<Equipamento> equipamentos = new ArrayList<>(Arrays.asList(

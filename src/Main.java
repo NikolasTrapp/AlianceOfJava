@@ -15,8 +15,7 @@ import equipamentos.Raridade;
 
 public class Main {
 
-	public static double multiplicador = 1;
-	
+	public static double multiplicador = 1;	
 	
 	public static final String ANSI_RESET = "\u001B[0m";
 	public static final String ANSI_RED = "\u001B[31m";
@@ -29,11 +28,11 @@ public class Main {
     //Lista de personagens pré cadastrados
     public static ArrayList<Personagem> personagens = new ArrayList<>(Arrays.asList(
             new Personagem(320, "Monge", 10, 12),
-            new Personagem(315, "Ladino", 13, 12),
-            new Personagem(330, "Guerreiro", 12, 12),
-            new Personagem(340, "Barbaro", 15, 12),
+            new Personagem(315, "Ladino", 13, 11),
+            new Personagem(330, "Guerreiro", 12, 10),
+            new Personagem(340, "Barbaro", 15, 9),
             new Personagem(305, "Mago", 8, 12),
-            new Personagem(305, "Clérigo", 7, 12),
+            new Personagem(305, "Clérigo", 7, 11),
             new Personagem(310, "Bardo", 9, 12)
     ));
     public static ArrayList<Chefao> chefoes = new ArrayList<>(Arrays.asList(
@@ -52,36 +51,47 @@ public class Main {
     
 
     public static void main(String[] args) {
-    	System.out.println(Historia.historia);    	
-    	System.out.println("Escolha a dificuldade desejada:\n1 = Facil\n2 = Média\n3 = Dificil");
-    	escolherDificuldade();
-    	
-        //Iniciando o jogo
-        System.out.println(ANSI_PURPLE+"Bem vindo à nossa campanha de RPG!!!");
+    	int vitorias = 0;
+		while (true) {
 
+			System.out.println(Historia.historia);
+			System.out.println("Escolha a dificuldade desejada:\n1 = Facil\n2 = Média\n3 = Dificil");
+			escolherDificuldade();
 
-        System.out.println("Que modo você deseja jogar?\n1 = Modo Historia\n2 = Modo Livre (Onde você pode criar seu personagem da forma que quiser)");
-        int opc = 0;
-        do{
-        	 opc = sc.nextInt();
-            if (opc == 2) {
-    			iniciarModoLivre();
-    		}else if(opc == 1){
-    			
-    			imprimirPersonagens();
-    	        //Mandando usuário selecionar o personagem
-    	        personagem = (Personagem) escolherCriatura(personagens);
-    	        
-    	        //Garantindo que haverá um personagem, caso haja, iniciar as 3 rodadas
-    	        if (personagem != null) {
-    	        		iniciarRaid();
-    	        } 
-    		}else{
-    			System.out.println("Opção invalida, informe uma Opção Valida!");
-    		}
-        }while(opc <= 0 || opc >= 3);
+			// Iniciando o jogo
+			System.out.println(ANSI_PURPLE + "Bem vindo à nossa campanha de RPG!!!");
 
-        System.out.println("Acabou, obrigado por jogar!");
+			System.out.println(
+					"Que modo você deseja jogar?\n1 = Modo Historia\n2 = Modo Livre (Onde você pode criar seu personagem da forma que quiser)");
+			int opc = 0;
+			do {
+				opc = sc.nextInt();
+				if (opc == 2) {
+					if (vitorias > 0) {
+						iniciarModoLivre();
+					} else {
+						System.out.println("Para jogar o modo livre você precisa ter concluido o jogo 1 vez");
+					}
+				} else if (opc == 1) {
+					imprimirPersonagens();
+					// Mandando usuário selecionar o personagem
+					personagem = (Personagem) escolherCriatura(personagens);
+					// Garantindo que haverá um personagem, caso haja, iniciar as 3 rodadas
+					if (personagem != null) {
+						iniciarRaid();
+					}
+				} else {
+					System.out.println("Opção invalida, informe uma Opção Valida!");
+				}
+			} while (opc <= 0 || opc >= 3);
+
+			System.out.println("Acabou, obrigado por jogar!");
+			vitorias++;
+			System.out.println("Deseja jogar novamente? (s - SIM, n - NÃO)");
+			char text = sc.next().charAt(0);
+			if (text != 's' && text != 'S') break;
+
+		}
     }
 
     public static void gerarInimigos(int levelPersonagem){
@@ -90,14 +100,13 @@ public class Main {
          *
          * @param levelPersonagem O level atual do personagem.
          */
-    	System.out.println(multiplicador);
     	for (int i = 0; i < 4; i++){
     		int n = getRandom(1, 5);
-    		if (n == 1) inimigos.add(new Inimigo("Lobo", 50 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem)* multiplicador),levelPersonagem*multiplicador));
-    		else if (n == 2) inimigos.add(new Inimigo("Goblin", 55 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem)* multiplicador),levelPersonagem*multiplicador));
-    		else if (n == 3) inimigos.add(new Inimigo("Troll", 60 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem)* multiplicador),levelPersonagem*multiplicador));
-    		else if (n == 4) inimigos.add(new Inimigo("Zumbi", 65 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem)* multiplicador),levelPersonagem*multiplicador));
-    		else if (n == 5) inimigos.add(new Inimigo("Urso", 70 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem)* multiplicador),levelPersonagem*multiplicador));
+    		if (n == 1) inimigos.add(new Inimigo("Lobo", 30 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem)* multiplicador),levelPersonagem*multiplicador));
+    		else if (n == 2) inimigos.add(new Inimigo("Goblin", 35 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem)* multiplicador),levelPersonagem*multiplicador));
+    		else if (n == 3) inimigos.add(new Inimigo("Troll", 40 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem)* multiplicador),levelPersonagem*multiplicador));
+    		else if (n == 4) inimigos.add(new Inimigo("Zumbi", 45 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem)* multiplicador),levelPersonagem*multiplicador));
+    		else if (n == 5) inimigos.add(new Inimigo("Urso", 50 * (levelPersonagem+1)*multiplicador,(int) Math.floor(3 + (levelPersonagem)* multiplicador),levelPersonagem*multiplicador));
     		else throw new NoSuchElementException("Ocorreu um erro ao criar um inimigo!");
     	}
 
@@ -136,9 +145,9 @@ public class Main {
                 verificarSeInimigoMorreu(inimigo); //Verificar se o inimigo possui um efeito e se vai morrer
                 //Atacar o personagem
                 int dano = personagem.tomarDano(inimigo.atacar(personagem));
-                System.out.println(ANSI_RED + "O inimigo " + inimigo.getNome() +
-                        " desferiu a você uma quantidade de " + dano +
-                        " de dano, lhe resta " + personagem.getHp() + " pontos de vida"+ANSI_RESET);
+                System.out.println("O inimigo " + inimigo.getNome() +
+                        " desferiu a você uma quantidade de " + ANSI_RED + dano +ANSI_RESET +
+                        " de dano, lhe resta " + ANSI_GREEN + personagem.getHp() +ANSI_RESET + " pontos de vida");
             }
             turno ++;
             if (personagem.getHp() <= 0) return true;
@@ -160,16 +169,16 @@ public class Main {
         boolean flag = true;
         do {
             try{
-                System.out.print(ANSI_GREEN+"Qual será sua opção: "+ANSI_RESET);
+                System.out.print(ANSI_GREEN+"Qual é sua opção: "+ANSI_RESET);
                 int opc = sc.nextInt()-1; //Pegando a opção -1
                 Criatura criatura = lista.get(opc); //Pegando a criatura
-                System.out.println("Você selecionou o: " +  criatura.getNome());
+                System.out.println(ANSI_CYAN+"Você selecionou o: " +  criatura.getNome() +ANSI_RESET);
                 flag = false; //Encerrando o loop
                 return criatura; //Retornando a criatura
             } catch (IndexOutOfBoundsException err){
-                System.out.println("Verifique a opção selecionada!");
+                System.out.println(ANSI_RED+"Verifique a opção selecionada!"+ANSI_RESET);
             } catch (InputMismatchException err){
-                System.out.println("Digita um numero aí meu!");
+                System.out.println(ANSI_RED+"Digita um numero aí meu!"+ANSI_RESET);
                 sc.next(); //Consumir o log de erro
             }
         } while(flag);
@@ -195,7 +204,7 @@ public class Main {
          */
         if (inimigo.getHp() <= 0){
             inimigos.remove(inimigo);
-            System.out.println("Inimigo morto!");
+            System.out.println(ANSI_RED+"Inimigo morto!"+ANSI_RESET);
             personagem.addXp(inimigo.getXpDrop());
         }
     }
@@ -210,28 +219,28 @@ public class Main {
 	        for (int i = 1; i <= 2; i++){
 	            System.out.println("Rodada: " + i);
 	            if (iniciarRodada()) {
-	                System.out.println("Você morreu!");
+	                System.out.println(ANSI_RED+"Você morreu!"+ANSI_RESET);
 	                return;
 	            }
 	        }
 	        System.out.println(personagem);
 	        personagem.setHp(personagem.getHpBase());
-	        System.out.println("Sua vida foi restaurada!");
+	        System.out.println(ANSI_GREEN+"Sua vida foi restaurada!"+ANSI_RESET);
 	        abrirBau();
-	        System.out.println("Um boss apareceu!!!");
-	        batalharComBoss(estagio);
+	        System.out.println(ANSI_YELLOW+"Um Boss apareceu!!!"+ANSI_RESET);
+	        batalharComBoss();
 	        
 	        estagio++;
     	}
         
     }
 
-    public static void batalharComBoss(int n){
-        Chefao chefao = chefoes.get(n);
+    public static void batalharComBoss(){
+        Chefao chefao = chefoes.get(estagio);
         int turno = 1;
         while (chefao.getHp() > 0 && personagem.getHp() > 0){
             System.out.println("Turno: " + turno);
-            System.out.println("Sua vez de atacar!");
+            System.out.println(ANSI_GREEN +"Sua vez de atacar!"+ANSI_RESET);
 
             int danoAtaque = personagem.atacar(chefao);
             chefao.tomarDano(danoAtaque);
@@ -239,7 +248,7 @@ public class Main {
             System.out.printf("Você desferiu uma quantidade de %d de dano ao %s!!!%n", danoAtaque, chefao.getNome());
 
             if (chefao.getHp() <= 0){
-                System.out.println("Chefão morto!");
+                System.out.println(ANSI_RED+"Chefão morto!"+ANSI_RESET);
                 personagem.addXp(chefao.getXpDrop());
                 break;
             }
@@ -247,12 +256,12 @@ public class Main {
             
             if (chefao.roubarEquipamento(getRandom(1, 100))) {
             	personagem.setEquipamento(null);
-            	System.out.println("O chefão roubou seu equipamento!!!");
+            	System.out.println("O boss roubou seu equipamento!!!");
             }
 
             System.out.println("O inimigo " + chefao.getNome() +
-                    " desferiu a você uma quantidade de " + dano +
-                    " de dano, lhe resta " + personagem.getHp() + " pontos de vida");
+                    " desferiu a você uma quantidade de " + ANSI_RED + dano + ANSI_RESET+
+                    " de dano, lhe resta " + ANSI_GREEN +personagem.getHp() + ANSI_RESET+ " pontos de vida");
             turno++;
         }
         estagio++;
@@ -273,7 +282,7 @@ public class Main {
     }
 
     public static void abrirBau(){
-        System.out.println("Você encontrou um baú no caminho para próxima raid!!");
+        System.out.println(ANSI_YELLOW+"\nVocê encontrou um baú no caminho para próxima raid!!"+ANSI_RESET);
         Equipamento equipamento = pegarEquipamento();
         System.out.println("Você ganhou um(a): " + equipamento.getNome() + "\n Veja seus atributos:");
         equipamento.imprimirAtributos();
@@ -283,15 +292,15 @@ public class Main {
             System.out.println("Você equipou um(a): " + equipamento.getNome());
         } else {
         	if (equipamento == personagem.getEquipamento()) {
-        		System.out.println("Parece que você encontrou um equipamento repetido, deseja fundi-lo?");
+        		System.out.println("\nParece que você encontrou um equipamento repetido, deseja fundi-lo?");
         		char resposta = sc.next().charAt(0);
                 if (resposta == 's' || resposta == 'S') {
                     personagem.getEquipamento().fundir();
-                    System.out.println("Você fundiu o equipamento com sucesso!");
+                    System.out.println(ANSI_GREEN+"Você fundiu o equipamento com sucesso!"+ANSI_RESET);
                 }
                 else System.out.println("Ok, fica pra próxima");
         	} else {
-	            System.out.println("Você deseja substituir o seu " + personagem.getEquipamento().getNome() +
+	            System.out.println("\nVocê deseja substituir o seu " + personagem.getEquipamento().getNome() +
 	                    " por um " + equipamento.getNome() + "? s - Sim, n - Não");
 	            char resposta = sc.next().charAt(0);
 	            if (resposta == 's' || resposta == 'S') {
@@ -304,12 +313,7 @@ public class Main {
     }
 
     public static Equipamento pegarEquipamento() {
-    	ArrayList<Equipamento> equipamentos = new ArrayList<>();
-    	for (Equipamento equip : ListaAtaques.equipamentos){
-    	  if (equip.getRaridade() == retornarRaridade()){
-    	    equipamentos.add(equip);
-    	  }
-    	}
+        List<Equipamento> equipamentos = ListaAtaques.equipamentos.stream().filter(equip -> equip.getRaridade() == retornarRaridade()).toList();
         return equipamentos.get(getRandom(0, equipamentos.size()-1));
         
     }
@@ -333,7 +337,7 @@ public class Main {
     		DIFICULDADE = n;
     		break;
     	}else{
-    		System.out.println("A dificuldade informada esta incorreta!\nInforme um número de 1 a 3!!");
+    		System.out.println(ANSI_RED+"A dificuldade informada esta incorreta!\nInforme um número de 1 a 3!!"+ANSI_RESET);
     	}
     	}while(true);
     	multiplicarDificuldade();
@@ -353,7 +357,7 @@ public class Main {
 			break;
 			
 		case 3:
-			 multiplicador = 2;
+			 multiplicador = 1.5;
 			break;
 		default:
 			
@@ -369,7 +373,7 @@ public class Main {
     	
     	switch (opc) {
 		case 1:
-	        System.out.println("Crie seu personagem e inicie a sua aventura"+ANSI_RESET);
+	        System.out.println(ANSI_GREEN+"Crie seu personagem e inicie a sua aventura"+ANSI_RESET);
 			System.out.println("Digite o Nome do persosnagem");
 			String nome = sc.next();
 			
@@ -386,7 +390,7 @@ public class Main {
 			break;
 
 		case 2:
-	        System.out.println("Escolha seu personagem e inicie a sua aventura"+ANSI_RESET);
+	        System.out.println(ANSI_GREEN+"Escolha seu personagem e inicie a sua aventura"+ANSI_RESET);
 			imprimirPersonagens();
 			personagem = (Personagem) escolherCriatura(personagens);
 			break;
@@ -398,7 +402,7 @@ public class Main {
     	int contador = 1;
     	while (personagem.getHp() > 0) {
     		if(contador % 5 == 0){
-    			batalharComBoss(getRandom(1, 3));
+    			batalharComBoss();
     			abrirBau();
     		}else{
     			iniciarRodada();

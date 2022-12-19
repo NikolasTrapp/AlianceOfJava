@@ -21,7 +21,16 @@ public class Inimigo extends Criatura{
         if (verificarEfeitoStatus()) return 0;
         int dano = getDano();
         dano += verificarEfeitoBuffDebuff();
+        if (dano <= 0) return 0;
         return dano;
+    }
+
+    public void imprimirInimigo(int n){
+        System.out.println("Inimigo numero " + n + ":");
+        System.out.println("Nome: " + getNome());
+        System.out.printf("Vida: %.1f", getHp());
+        System.out.println();
+
     }
 
 

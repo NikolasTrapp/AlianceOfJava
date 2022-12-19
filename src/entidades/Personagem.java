@@ -11,26 +11,30 @@ import ataques.AtaqueEspecial;
 import ataques.ListaAtaques;
 import ataques.TipoEfeito;
 import equipamentos.Equipamento;
+import equipamentos.Raridade;
 import equipamentos.Tipo;
 
 public class Personagem extends Criatura{
 
     private int mp;
-    private double xp = 0;
+    private double xp = 9;
     private int xpBar = 10;
     private int level = 1;
     private int mpBase;
 
-    private Equipamento equipamento;
+    private Equipamento equipamento = new Equipamento(Tipo.ATAQUE, "Espada de madeira", 3, 3, Raridade.COMUM);
     private ArrayList<AtaqueBasico> ataquesBasicos = new ArrayList<>();
     private ArrayList<AtaqueEspecial> ataqueEspecial = new ArrayList<>();
 
     private Scanner sc = new Scanner(System.in);
 
     public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
+	public static final String ANSI_RED = "\u001B[31m";
+	public static final String ANSI_GREEN = "\u001B[32m";
+	public static final String ANSI_YELLOW = "\u001B[33m";
+	public static final String ANSI_BLUE = "\u001B[34m";
+	public static final String ANSI_PURPLE = "\u001B[35m";
+	public static final String ANSI_CYAN = "\u001B[36m";
     
     public Personagem(double hpBase, String nome, int danoBase, int mp) {
         super(hpBase, nome, danoBase);
@@ -68,12 +72,12 @@ public class Personagem extends Criatura{
         /**
          * Esta função mostra os atributos do personagem
          */
-        System.out.println("----------ATRIBUTOS----------");
-        System.out.println(ANSI_BLUE+"Nome: " + getNome());
+        System.out.println(ANSI_PURPLE +"----------ATRIBUTOS----------"+ANSI_RESET);
+        System.out.println(ANSI_GREEN+"Nome: " + getNome());
         System.out.println("HP: " + getHpBase());
         System.out.println("Dano: " + getDanoBase());
         System.out.println("MP: " + getMp()+ANSI_RESET);
-        System.out.println("-----------ATAQUES-----------");
+        System.out.println(ANSI_BLUE+"\n-----------ATAQUES-----------"+ANSI_RESET);
         mostrarAtaques();
     }
 
@@ -85,13 +89,13 @@ public class Personagem extends Criatura{
          *
          * @param xp A quantidade de xp para ser adicionada.
          */
-        System.out.println("☆☆☆ Você ganhou " + xp + " de XP!!! ☆☆☆");
+        System.out.println(ANSI_GREEN+"\n☆☆☆ Você ganhou " + xp + " de XP!!! ☆☆☆"+ANSI_RESET);
 
         if (getXp() + xp >= getXpBar()){
             setXp((getXp() + xp) % getXpBar());
             this.level++;
             setHp(getHpBase());
-            System.out.println("☆☆☆☆☆ Parabéns, Você subiu de nivel e recuperou sua Vida!!! ☆☆☆☆☆");
+            System.out.println(ANSI_YELLOW+"\n☆☆☆☆ Parabéns, Você subiu de nivel e recuperou sua Vida!!! ☆☆☆☆"+ANSI_RESET);
             setXpBar(getXpBar()+10);
             for (AtaqueEspecial ataque : ataqueEspecial) {
 				ataque.uparSkill();
@@ -104,7 +108,7 @@ public class Personagem extends Criatura{
         } else {
             this.xp += xp;
         }
-        System.out.println("Ainda te restam " + (getXpBar() - getXp()) + " para subir ao nível " + (getLevel() + 1));
+        System.out.println("\nAinda te restam " + (getXpBar() - getXp()) + " para subir ao nível " + (getLevel() + 1));
     }
 
     @Override
@@ -143,14 +147,14 @@ public class Personagem extends Criatura{
          *
          * @return O dano total do ataque desferido.
          */
-       /* Ataque ataque = escolherAtaque();
+        Ataque ataque = escolherAtaque();
         if (ataque == null) return 0;
         int dano = getDanoBase();
         dano += ataque.calcularDanoAtaque();
         dano += verificarEfeitoBuffDebuff();
         dano += verificarEquipamento(Tipo.ATAQUE);
-        inimigo.passarEfeito(ataque); */
-        return 10;
+        inimigo.passarEfeito(ataque);
+        return dano;
     }
 
     private int verificarEquipamento(Tipo tipo){
@@ -196,9 +200,9 @@ public class Personagem extends Criatura{
         mostrarAtaques();
         while (flag){
             try{
-                System.out.println("Qual tipo de ataque você gostaria de usar? Basico (b) ou Especial (e):");
+                System.out.println(ANSI_CYAN+"Qual tipo de ataque você gostaria de usar? Basico (b) ou Especial (e):"+ANSI_RESET);
                 char opc = sc.next().charAt(0);
-                System.out.println("Qual o numero do ataque que gostarias de usar:");
+                System.out.println(ANSI_CYAN+"Qual o numero do ataque que gostarias de usar:"+ANSI_RESET);
                 int ataque = sc.nextInt()-1;
 
                 if (opc == 'b' || opc == 'B'){
@@ -214,10 +218,10 @@ public class Personagem extends Criatura{
                         System.out.println("Você não possui pontos de MP suficientes para utilizar este ataque! seus pontos: " + getMp());
                     }
                 } else {
-                    System.out.println("Verifique a opção informada!");
+                    System.out.println(ANSI_RED+"Verifique a opção informada!"+ANSI_RESET);
                 }
             } catch (IndexOutOfBoundsException err){
-                System.out.println("Verifique a opção selecionada!");
+                System.out.println(ANSI_RED+"Verifique a opção selecionada!"+ANSI_RESET);
             } catch (InputMismatchException err){
                 System.out.println("Digita um numero aí meu!");
             }
@@ -341,14 +345,6 @@ public class Personagem extends Criatura{
 
 	public void setMpBase(int mpBase) {
 		this.mpBase = mpBase;
-	}
-	
-	public ArrayList<Ataque> getAtaques(){
-		
-		ArrayList<Ataque> ataques = new ArrayList<>();
-		ataques.addAll(ataquesBasicos);
-		ataques.addAll(ataqueEspecial);
-		return ataques;
 	}
 
 }

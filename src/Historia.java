@@ -22,8 +22,8 @@ public class Historia {
 			+ "Golem StoneBlocks, pelo Bosque Della Muerte liderado pelo temido Rei \n"
 			+ "troll Mortem Walker e por fim no temido Vulcão Sanguis Vulcano governada \n"
 			+ "pelo Dragon Ignis.\r\n\n"
-			+ "A equipe de AlianceOfJava ao completar essa jornada e vencer Dragon, \n"
-			+ "podendo assim salvar o povo de North Javeland e trazer novamente a \n"
-			+ "tranquilidade e paz para ilha. Bom Jogo!!!";
+			+ "Se junte a equipe de AlianceOfJava e ajude a completar essa jornada e\n"
+			+ "vencer Dragon, podendo assim salvar o povo de North Javeland e trazer  \n"
+			+ "novamente a tranquilidade e paz para ilha. Bom Jogo!!! \n";
 
 }
