@@ -1,30 +1,50 @@
 Aliance Of Java
 
-🚀 Começando o desenvolvimento do Jogo de RPG em Java
+Começando o desenvolvimento do Jogo de RPG em Java
 
-📋 Pré-requisitos
+📋 Descrição do projeto
 
-O projeto foi desenvolvido em Java, Contendo Main Principal e mais 3 pacotes, sendo eles: 
-Ataques contendo todos os ataques básicos e especiais, efeitos dos ataques e tipo de efeitos, 
-Entidades contendo classe principal Criaturas  e suas heranças de personagens, chefoes e inimigos e
-Equipamentos tendo tipo e a raridade.
+O projeto se trata de um jogo no estilo RPG de turno, o qual tem um personagem que deve trilhar sua caminhada
+seguindo a história que criamos. O jogo foi criado na linguagem Java e conta com diversas funcionalidades
+e mecânicas bem divertidas, as quais os jogadores poderão fazer uso e se divertir muito.
 
+✅ Status do projeto
 
-🔧 Instalação ⚙️ Executando os testes
-Pode ser execultado via Eclipse-workspace e VS Code;
+O projeto conta com 2 versões, uma no terminal (Console) e outra com interface gráfica, a versão de terminal está
+pronta e funcional, já a versão com interface gráfica está em desenvolvimento.
 
+⌨️ Funcionalidades
 
-⌨️ E testes de estilo de codificação 📦 Desenvolvimento
+- Sistema de escolha de personagem;
+- Nivel, xp e liberação de novos ataques;
+- Ataques básicos e especiais;
+- Dificuldade;
+- Escolha de modo livre (sandbox) e modo história;
+- Criação de um personagem customizável;
+- Batalha de turno contra inimigos e chefões;
+- Sistema de efeitos de ataque;
+- Equipamentos de ataque, defesa e cura;
+- Baús de itens aleatórios.
 
-🛠️ Construído com 
+🛠️ Construído com
+
+- Editor de código: Eclipse e Intellij
+- Linguagem de programação: Java
+- Sistema de versionamento: Git
+- Paradigma de orientação a objetos
+
+👾 Descrição do código
+
+Para criar as funcionalidades e mecanicas do nosso projeto utilizamos Herança e classes abstratas para criar os
+personagens (Classe Criatura) e ataques (Classe Ataque), classes enumeradas para tipo de equipamento, efeitos e para
+raridade de equiapementos e por fim o Windows Builder para ajudar na confecção das telas da interface gráfica.
 
 ✒️ Autores
+
 Nikolas Trapp   - (https://github.com/NikolasTrapp)
+
 Marlon Santos   - (https://github.com/MarlonDSantos)
+
 Reinaldo Santos - (https://github.com/Reinaldo0)
-
-📄 Licença
-
-Este projeto está sob a licença (By Equipe 03 +Dev2Blu) - para detalhes.
 
 Obrigado 🤓.
