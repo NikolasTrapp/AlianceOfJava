@@ -2,129 +2,146 @@ package ataques;
 
 public abstract class Ataque {
 
-    private String nome;
-    private int dano;
-    private int chanceCritico;
-    private int chanceErro;
-    private int chanceEfeito;
-    private String[] classes;
-    private int nivelMinimo;
-    private Efeito efeito;
+	private String nome;
+	private int dano;
+	private int chanceCritico;
+	private int chanceErro;
+	private int chanceEfeito;
+	private String[] classes;
+	private int nivelMinimo;
+	private Efeito efeito;
 
-    public static final String ANSI_RESET = "\u001B[0m";
+	public static final String ANSI_RESET = "\u001B[0m";
 	public static final String ANSI_RED = "\u001B[31m";
 	public static final String ANSI_GREEN = "\u001B[32m";
 
-    public Ataque(String nome, int dano, int chanceCritico, int chanceErro, int chanceEfeito, String[] classes, int nivelMinimo, Efeito efeito) {
-        this.nome = nome;
-        this.dano = dano;
-        this.chanceCritico = chanceCritico;
-        this.chanceErro = chanceErro;
-        this.chanceEfeito = chanceEfeito;
-        this.classes = classes;
-        this.nivelMinimo = nivelMinimo;
-        this.efeito = efeito;
-    }
+	public Ataque(String nome, int dano, int chanceCritico, int chanceErro, int chanceEfeito, String[] classes,
+			int nivelMinimo, Efeito efeito) {
+		this.nome = nome;
+		this.dano = dano;
+		this.chanceCritico = chanceCritico;
+		this.chanceErro = chanceErro;
+		this.chanceEfeito = chanceEfeito;
+		this.classes = classes;
+		this.nivelMinimo = nivelMinimo;
+		this.efeito = efeito;
+	}
 
-    public void uparSkill(){
-    	this.dano += 5;
-    }
-    
-    public abstract int calcularDanoAtaque();
-    public abstract void mostrarAtributos();
+	public void uparSkill() {
+		this.dano += 5;
+	}
 
-    public int getRandom(int min, int max){
-        return (int)Math.floor(Math.random()*(max-min+1)+min);
-    }
+	public abstract int calcularDanoAtaque();
 
-    public boolean verificarPertencePersonagem(String nome, int levelPersonagem){
-        for (String str : classes){
-            if (str.equalsIgnoreCase(nome) && levelPersonagem == getNivelMinimo()) return true;
-        }
-        return false;
-    }
-    
-    public boolean verificarPertenceChefao(String nome){
-        for (String str : classes){
-            if (str.equalsIgnoreCase(nome)) return true;
-        }
-        return false;
-    }
+	public abstract void mostrarAtributos();
 
-    @Override
-    public String toString() {
-        return ANSI_GREEN+"Ataque\n" +
-                "nome='" + nome + '\'' +
-                ", dano=" + dano +
-                ", chanceCritico=" + chanceCritico +
-                ", chanceErro=" + chanceErro +
-                ", chanceEfeito=" + chanceEfeito +
-                ", efeito=" + getEfeito().getNome()+ANSI_RESET;
-    }
+	public int getRandom(int min, int max) {
+		return (int) Math.floor(Math.random() * (max - min + 1) + min);
+	}
 
-    //GETTERS E SETTERS
+	public boolean verificarPertencePersonagem(String nome, int levelPersonagem) {
+		/**
+		 * Função que irá verificar se o ataque em questão pertence ao personagem a
+		 * partir do seu nome e nivel.
+		 * 
+		 * @param nome            Nome do personagem.
+		 * @param levelPersonagem o Nivel do personagem.
+		 * 
+		 * @return true se pertencer e false se não pertencer.
+		 */
+		for (String str : classes) {
+			if (str.equalsIgnoreCase(nome) && levelPersonagem == getNivelMinimo())
+				return true;
+		}
+		return false;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public boolean verificarPertenceChefao(String nome) {
+		/**
+		 * Função que irá verificar se o ataque em questão pertence ao chefão a partir
+		 * do seu nome e nivel.
+		 * 
+		 * @param nome Nome do chefão.
+		 * 
+		 * @return true se pertencer e false se não pertencer.
+		 */
+		for (String str : classes) {
+			if (str.equalsIgnoreCase(nome))
+				return true;
+		}
+		return false;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	@Override
+	public String toString() {
+		return ANSI_GREEN + "Ataque\n" + "nome='" + nome + '\'' + ", dano=" + dano + ", chanceCritico=" + chanceCritico
+				+ ", chanceErro=" + chanceErro + ", chanceEfeito=" + chanceEfeito + ", efeito=" + getEfeito().getNome()
+				+ ANSI_RESET;
+	}
 
-    public int getDano() {
-        return dano;
-    }
+	// GETTERS E SETTERS
 
-    public void setDano(int dano) {
-        this.dano = dano;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public int getChanceCritico() {
-        return chanceCritico;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public void setChanceCritico(int chanceCritico) {
-        this.chanceCritico = chanceCritico;
-    }
+	public int getDano() {
+		return dano;
+	}
 
-    public int getChanceErro() {
-        return chanceErro;
-    }
+	public void setDano(int dano) {
+		this.dano = dano;
+	}
 
-    public void setChanceErro(int chanceErro) {
-        this.chanceErro = chanceErro;
-    }
+	public int getChanceCritico() {
+		return chanceCritico;
+	}
 
-    public String[] getClasse() {
-        return classes;
-    }
+	public void setChanceCritico(int chanceCritico) {
+		this.chanceCritico = chanceCritico;
+	}
 
-    public void setClasse(String[] classe) {
-        this.classes = classe;
-    }
+	public int getChanceErro() {
+		return chanceErro;
+	}
 
-    public int getNivelMinimo() {
-        return nivelMinimo;
-    }
+	public void setChanceErro(int chanceErro) {
+		this.chanceErro = chanceErro;
+	}
 
-    public void setNivelMinimo(int nivelMinimo) {
-        this.nivelMinimo = nivelMinimo;
-    }
+	public String[] getClasse() {
+		return classes;
+	}
 
-    public Efeito getEfeito() {
-        return efeito;
-    }
+	public void setClasse(String[] classe) {
+		this.classes = classe;
+	}
 
-    public void setEfeito(Efeito efeito) {
-        this.efeito = efeito;
-    }
+	public int getNivelMinimo() {
+		return nivelMinimo;
+	}
 
-    public int getChanceEfeito() {
-        return chanceEfeito;
-    }
+	public void setNivelMinimo(int nivelMinimo) {
+		this.nivelMinimo = nivelMinimo;
+	}
 
-    public void setChanceEfeito(int chanceEfeito) {
-        this.chanceEfeito = chanceEfeito;
-    }
+	public Efeito getEfeito() {
+		return efeito;
+	}
+
+	public void setEfeito(Efeito efeito) {
+		this.efeito = efeito;
+	}
+
+	public int getChanceEfeito() {
+		return chanceEfeito;
+	}
+
+	public void setChanceEfeito(int chanceEfeito) {
+		this.chanceEfeito = chanceEfeito;
+	}
 }
