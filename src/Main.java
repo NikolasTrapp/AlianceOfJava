@@ -59,8 +59,8 @@ public class Main {
 					"Que modo você deseja jogar?\n1 = Modo Historia\n2 = Modo Livre (Onde você pode criar seu personagem da forma que quiser)");
 			int opc = 0;
 			do {
-//				opc = sc.nextInt();
-				opc = 1;
+				opc = sc.nextInt();
+//				opc = 1;
 				if (opc == 2) {
 					if (vitorias > 0) {
 						iniciarModoLivre();
@@ -73,7 +73,7 @@ public class Main {
 					personagem = (Personagem) escolherCriatura(personagens);
 					// Garantindo que haverá um personagem, caso haja, iniciar as 3 rodadas
 					if (personagem != null) {
-						batalharComBoss();
+//						batalharComBoss();
 						iniciarRaid();
 					}
 				} else {
@@ -254,11 +254,11 @@ public class Main {
 		 */
 		Chefao chefao = chefoes.get(estagio);
 		System.out.println(ANSI_YELLOW + "Um Boss " + chefao.getNome() + " apareceu!!!" + ANSI_RESET);
+		chefao.imprimirBoss();
 		int turno = 1;
 		while (chefao.getHp() > 0 && personagem.getHp() > 0) {
 			System.out.println("Turno: " + turno);
 			System.out.println(ANSI_GREEN + "Sua vez de atacar!" + ANSI_RESET);
-			System.out.println(personagem.getEfeito());
 			int danoAtaque = personagem.atacar(chefao);
 			chefao.tomarDano(danoAtaque);
 
